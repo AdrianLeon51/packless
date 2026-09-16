@@ -1,0 +1,20 @@
+{
+  "name": "packless-landing",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-04",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "packless-db",
+      "database_id": "d2e7e737-1fd2-4a73-8157-4159db1d02f0",
+      "preview_database_id": "local-packless-db"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
