@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://packless.loupfashion.pt/sitemap.xml
