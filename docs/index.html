@@ -7,6 +7,7 @@
 <meta name="description" content="A travel membership that dresses you at your destination. Fly with a carry-on, and pick up what you need once you land.">
 <link rel="canonical" href="https://packless.loupfashion.pt/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=75&w=2000&auto=format&fit=crop" fetchpriority="high" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Packless" />
 <meta property="og:title" content="Packless — Never overpack again" />
@@ -31,7 +32,8 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@200;300;400;500;600&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@200;300;400;500;600&display=swap" /></noscript>
 <style>
   html, body { margin: 0; padding: 0; background: #F3F6FB; }
   * { box-sizing: border-box; }
@@ -59,7 +61,7 @@
 <div>
 
   <section style="position: relative; isolation: isolate; overflow: hidden; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; background: #012A6B;">
-    <img src="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&amp;q=75&amp;w=2000&amp;auto=format&amp;fit=crop" alt="A yellow cable car on a Lisbon street under blue sky" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: saturate(1.08) contrast(1.04) brightness(1.02);" />
+    <img src="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&amp;q=75&amp;w=2000&amp;auto=format&amp;fit=crop" alt="A yellow cable car on a Lisbon street under blue sky" width="2000" height="1333" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: saturate(1.08) contrast(1.04) brightness(1.02);" />
     <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(1,26,58,0.5) 0%, rgba(1,26,58,0.34) 38%, rgba(1,26,58,0.72) 66%, rgba(1,26,58,0.9) 100%);"></div>
 
     <header style="position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; padding: 28px clamp(24px, 8vw, 120px) 0;">
@@ -130,7 +132,7 @@
     <div style="overflow: hidden; padding-left: clamp(24px, 8vw, 120px); padding-right: clamp(24px, 8vw, 120px);" id="city-viewport">
       <div class="city-track" id="city-track">
         <article class="city-card">
-          <img alt="Pink Street, Lisbon" class="city-img" src="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&q=75&w=1000&auto=format&fit=crop" style="object-position: center;" />
+          <img alt="Pink Street, Lisbon" class="city-img" src="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&q=75&w=1000&auto=format&fit=crop" width="1000" height="1250" loading="lazy" style="object-position: center;" />
           <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px;">
             <h3 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 30px; line-height: 1; margin: 0;">Lisbon</h3>
             <span style="font-size: 11px; font-weight: 300; letter-spacing: 0.08em; color: #4A6082; white-space: nowrap;">Opening first</span>
@@ -139,7 +141,7 @@
         </article>
 
         <article class="city-card">
-          <img alt="A scenic view of Quito, Ecuador with mountains in the background" class="city-img" src="https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&q=75&w=1000&auto=format&fit=crop" style="object-position: center;" />
+          <img alt="A scenic view of Quito, Ecuador with mountains in the background" class="city-img" src="https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&q=75&w=1000&auto=format&fit=crop" width="1000" height="1250" loading="lazy" style="object-position: center;" />
           <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px;">
             <h3 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 30px; line-height: 1; margin: 0;">Quito</h3>
             <span style="font-size: 11px; font-weight: 300; letter-spacing: 0.08em; color: #4A6082; white-space: nowrap;">High-altitude mild</span>
@@ -148,7 +150,7 @@
         </article>
 
         <article class="city-card">
-          <img alt="People walking past a building in Mexico City in daylight" class="city-img" src="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&q=75&w=1000&auto=format&fit=crop" style="object-position: center 72%;" />
+          <img alt="People walking past a building in Mexico City in daylight" class="city-img" src="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&q=75&w=1000&auto=format&fit=crop" width="1000" height="1250" loading="lazy" style="object-position: center 72%;" />
           <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px;">
             <h3 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 30px; line-height: 1; margin: 0;">Mexico City</h3>
             <span style="font-size: 11px; font-weight: 300; letter-spacing: 0.08em; color: #4A6082; white-space: nowrap;">Winter escape</span>
@@ -157,7 +159,7 @@
         </article>
 
         <article class="city-card">
-          <img alt="A bicycle parked against a building in Copenhagen" class="city-img" src="https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&q=75&w=1000&auto=format&fit=crop" style="object-position: center;" />
+          <img alt="A bicycle parked against a building in Copenhagen" class="city-img" src="https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&q=75&w=1000&auto=format&fit=crop" width="1000" height="1250" loading="lazy" style="object-position: center;" />
           <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px;">
             <h3 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 30px; line-height: 1; margin: 0;">Copenhagen</h3>
             <span style="font-size: 11px; font-weight: 300; letter-spacing: 0.08em; color: #4A6082; white-space: nowrap;">Summer opening</span>
@@ -213,7 +215,7 @@
         </form>
         <p id="final-note" style="margin: 0; font-size: 11px; font-weight: 300; letter-spacing: 0.04em; color: #4A6082;">First cities open in stages. Nothing to pay today.</p>
       </div>
-      <img alt="A quiet street in Lisbon, Portugal" src="https://images.unsplash.com/photo-1714199543949-b84e11df1269?fm=jpg&q=75&w=1000&auto=format&fit=crop" style="display: block; width: 100%; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; background-color: #C9D6E8; object-fit: cover; object-position: center; filter: saturate(1.12) contrast(1.07) brightness(1.02);" />
+      <img alt="A quiet street in Lisbon, Portugal" src="https://images.unsplash.com/photo-1714199543949-b84e11df1269?fm=jpg&q=75&w=1000&auto=format&fit=crop" width="1000" height="1250" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; background-color: #C9D6E8; object-fit: cover; object-position: center; filter: saturate(1.12) contrast(1.07) brightness(1.02);" />
     </div>
   </section>
 
