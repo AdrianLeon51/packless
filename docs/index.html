@@ -38,8 +38,7 @@
   "mainEntity": [
     {"@type":"Question","name":"Is this rental or do I buy the clothes?","acceptedAnswer":{"@type":"Answer","text":"It's rental. You wear the pieces on your trip and hand them back. If you love something, you can buy it. That's optional."}},
     {"@type":"Question","name":"Can I choose my own outfits?","acceptedAnswer":{"@type":"Answer","text":"Yes. Browse what's in stock in your city and pick. Or set your preferences and we'll choose for you."}},
-    {"@type":"Question","name":"Who owns the clothes?","acceptedAnswer":{"@type":"Answer","text":"Local stores in each city. They list their pieces on Packless. We don't keep our own stock."}},
-    {"@type":"Question","name":"How do you choose partner stores?","acceptedAnswer":{"@type":"Answer","text":"Every store must meet our standards: pieces are condition checked, professionally cleaned, and measured so sizes are documented properly."}},
+    {"@type":"Question","name":"Who owns the clothes?","acceptedAnswer":{"@type":"Answer","text":"Local stores in each city. They list their pieces on Packless. We don't keep our own stock. Every store meets our standards: pieces are condition checked, professionally cleaned, and measured so sizes are documented properly."}},
     {"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"We'll share prices before launch. People on the waitlist hear first. Joining the waitlist is free."}},
     {"@type":"Question","name":"How do you know my size?","acceptedAnswer":{"@type":"Answer","text":"You save your sizes once. Every piece has measured, documented sizing, so you can check the fit before you pick it."}},
     {"@type":"Question","name":"What if something doesn't fit?","acceptedAnswer":{"@type":"Answer","text":"Tell us. We'll swap it while you're there."}},
@@ -54,12 +53,14 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700&family=Figtree:wght@400;600;700;800&display=swap" /></noscript>
 <style>
   :root {
-    /* Azulejo palette: tile blue bookends the page, paper and sand carry the middle.
-       Coral is for CTAs and small highlights only. Text on blue is always paper. */
+    /* Section backgrounds: tile blue (hero, closing CTA) and paper only.
+       Card fills add sun and mint (plus blue, navy, coral) on colour cards, never on sections.
+       Coral is the only CTA colour. Text on blue and navy is always paper. */
     --blue: #1D5BD8;
     --paper: #FFF8EE;
-    --sand: #F4E6CC;
     --navy: #0B1D3A;
+    --sun: #FFC94D;
+    --mint: #8FDCC2;
     --navy-soft: #33456A; /* paper backgrounds only */
     --coral: #FF7A59;
     --coral-hover: #FF6A45;
@@ -73,6 +74,8 @@
     --section-y: clamp(72px, 10vw, 128px);
     --card-pad: clamp(24px, 3vw, 36px);
     --max: 1280px;
+    --max-narrow: 960px;
+    --bleed: 12px; /* outer gutter of full-bleed card rows */
 
     --ease-bounce: cubic-bezier(.64, .1, .26, 1.6);
     --ease-out: cubic-bezier(.16, 1, .3, 1);
@@ -103,12 +106,13 @@
 
   /* ---- Layout ---- */
   .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+  /* Narrow tier: content column capped at 960px, for text-led modules. */
+  .container.narrow { max-width: calc(var(--max-narrow) + 2 * var(--gutter)); }
   .section { padding-block: var(--section-y); }
   .bg-blue { background: var(--blue); color: var(--paper); }
   .bg-blue :focus-visible, .bg-blue .waitlist:focus-within { outline-color: var(--paper); }
   .bg-paper { background: var(--paper); }
-  .bg-sand { background: var(--sand); }
-  .bg-paper + .bg-paper, .bg-sand + .bg-sand { padding-top: 0; }
+  .bg-paper + .bg-paper { padding-top: 0; }
   .section-head { display: flex; flex-direction: column; gap: 16px; max-width: 720px; margin-bottom: clamp(40px, 5vw, 64px); }
   .section-head.center { margin-inline: auto; text-align: center; align-items: center; }
   .eyebrow { font-weight: 800; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -121,9 +125,8 @@
   .card-outline { border: 2px solid var(--navy); background: var(--paper); }
   .card-blue { background: var(--blue); color: var(--paper); }
   .card-blue :focus-visible { outline-color: var(--paper); }
-  .card-paper { background: var(--paper); }
   .card p { color: inherit; }
-  .bg-paper .card p, .bg-sand .card p { color: var(--navy-soft); }
+  .bg-paper .card p { color: var(--navy-soft); }
   .bg-paper .card.card-blue p { color: var(--paper); }
 
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: var(--radius-pill); border: 2px solid var(--navy); font-family: var(--font-body); font-weight: 800; font-size: 17px; line-height: 1; color: var(--navy); background: transparent; text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform 250ms var(--ease-bounce), background-color 200ms linear, color 200ms linear; }
@@ -184,10 +187,36 @@
   .problem p { max-width: 46ch; margin: 20px auto 0; color: var(--navy-soft); }
   .mark { background: linear-gradient(transparent 62%, var(--coral) 62%, var(--coral) 88%, transparent 88%); padding-inline: 2px; }
 
-  /* ---- Steps ---- */
-  .step-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .step-num { font-family: var(--font-display); font-weight: 700; font-size: 20px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: var(--paper); flex: none; }
-  .spot { width: 96px; height: 96px; flex: none; }
+  /* ---- Colour cards: one flat fill, text inside, flat art standing on the colour ---- */
+  .card-color { position: relative; display: flex; flex-direction: column; gap: 12px; min-height: clamp(360px, 32vw, 460px); padding: var(--card-pad); border-radius: var(--radius); color: var(--navy); overflow: hidden; transition: transform 350ms var(--ease-bounce); }
+  .card-color h3 { font-size: clamp(24px, 2.2vw, 28px); }
+  .card-color p { max-width: 30ch; }
+  .card-label { font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .card-art { width: clamp(120px, 12vw, 160px); height: auto; margin-top: auto; align-self: flex-end; fill: none; stroke: var(--art-line); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 450ms var(--ease-bounce); }
+  .card-art .fa { fill: var(--art-a); } .card-art .fb { fill: var(--art-b); } .card-art .fc { fill: var(--art-c); }
+  .card-color:hover { transform: translateY(-4px); }
+  .card-color:hover .card-art { transform: rotate(-4deg); }
+  .is-sun   { background: var(--sun);   --art-line: var(--navy);  --art-a: var(--paper); --art-b: var(--coral); --art-c: var(--blue); }
+  .is-blue  { background: var(--blue);  color: var(--paper); --art-line: var(--navy);  --art-a: var(--sun);   --art-b: var(--coral); --art-c: var(--paper); }
+  .is-navy  { background: var(--navy);  color: var(--paper); --art-line: var(--paper); --art-a: var(--blue);  --art-b: var(--coral); --art-c: var(--sun); }
+  .is-mint  { background: var(--mint);  --art-line: var(--navy);  --art-a: var(--paper); --art-b: var(--blue);  --art-c: var(--coral); }
+  .is-coral { background: var(--coral); --art-line: var(--navy);  --art-a: var(--paper); --art-b: var(--sun);   --art-c: var(--blue); }
+  .is-blue :focus-visible, .is-navy :focus-visible { outline-color: var(--paper); }
+  .steps { list-style: none; margin: 0; padding: 0; }
+
+  /* ---- Photo cards: photo fills the card, text only inside a paper panel ---- */
+  .card-photo { position: relative; overflow: hidden; border-radius: var(--radius); margin: 0; display: flex; flex-direction: column; justify-content: flex-end; min-height: clamp(360px, 32vw, 460px); background: var(--paper); }
+  .card-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(1.08) contrast(1.04); }
+  .card-panel { position: relative; margin: 12px; padding: 18px 20px; background: var(--paper); color: var(--navy); border-radius: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .card-panel p { color: var(--navy-soft); font-size: 16px; }
+
+  /* ---- Full-bleed card row (Who it's for) ---- */
+  .bleed-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--bleed); padding-inline: var(--bleed); }
+  @media (max-width: 1024px) { .bleed-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) {
+    .bleed-row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin; }
+    .bleed-row > * { scroll-snap-align: center; }
+  }
 
   /* ---- Split (wardrobe) ---- */
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
@@ -230,22 +259,23 @@
 
   /* ---- Destinations ---- */
   .dest-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
-  .dest { display: flex; flex-direction: column; gap: 10px; margin: 0; }
-  .dest .photo { aspect-ratio: 4 / 5; }
-  .dest-top { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 8px 0 8px; }
-  .dest p { color: var(--navy-soft); font-size: 16px; }
+  .dest { aspect-ratio: 4 / 5; min-height: 0; }
+  .dest-top { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .dest h3 { font-size: 22px; }
+  .dest .badge { min-height: 26px; font-size: 13px; padding: 0 10px; }
+  .dest .card-panel p { font-size: 15px; line-height: 1.45; }
   @media (max-width: 1024px) { .dest-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 600px) {
     .dest-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin; }
     .dest { scroll-snap-align: start; }
   }
 
-  /* ---- Who it's for (mirrors Two ways: copy left, photo right) ---- */
-  .who .split-photo { order: 2; }
-  @media (max-width: 860px) { .who .split-photo { order: 0; } }
+  /* ---- Who it's for ---- */
+  .who-intro h2 { font-size: clamp(26px, 2.4vw, 34px); }
+  .who-intro .eyebrow { font-size: 13px; }
 
   /* ---- FAQ ---- */
-  .faq { max-width: 1100px; margin-inline: auto; }
+  .faq { margin-inline: auto; }
   .faq details { border: 2px solid var(--navy); border-radius: var(--radius); background: var(--paper); margin-bottom: 12px; break-inside: avoid; }
   @media (min-width: 900px) { .faq { columns: 2; column-gap: 16px; } }
   .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px var(--card-pad); min-height: 64px; font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.3; }
@@ -263,7 +293,7 @@
   .cta .form-note { margin-top: 0; }
 
   /* ---- Footer ---- */
-  .footer { padding-block: 40px; background: var(--sand); }
+  .footer { padding-block: 40px; background: var(--paper); border-top: 2px solid rgba(11, 29, 58, 0.12); }
   .footer .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; }
   .footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; font-weight: 600; font-size: 16px; }
   .footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
@@ -277,7 +307,8 @@
     html { scroll-behavior: auto; }
     .js .reveal, .js .words .w { opacity: 1; transform: none; transition: none; }
     .hero-photo img { animation: none; }
-    .btn, .faq summary::after { transition: none; }
+    .btn, .faq summary::after, .card-color, .card-art { transition: none; }
+    .card-color:hover, .card-color:hover .card-art { transform: none; }
   }
 </style>
 <script>document.documentElement.className += " js";</script>
@@ -319,7 +350,7 @@
 <main id="main">
 
   <section class="section bg-paper problem" aria-labelledby="problem-title">
-    <div class="container reveal">
+    <div class="container narrow reveal">
       <h2 id="problem-title">Most of what you pack comes home <span class="mark">unworn.</span></h2>
       <p class="intro">You pack for weather that never comes and dinners that never happen. Then you carry it all home again.</p>
     </div>
@@ -331,52 +362,46 @@
         <span class="eyebrow">How it works</span>
         <h2 id="how-title" class="words">Three steps. Zero suitcases.</h2>
       </div>
-      <ol class="grid-3" style="list-style: none; margin: 0; padding: 0;">
-        <li class="card card-outline reveal">
-          <div class="step-top">
-            <span class="step-num" aria-hidden="true">1</span>
-            <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-              <path d="M14 30l22-8 24 8 22-8v48l-22 8-24-8-22 8z" fill="#FFF8EE"/>
-              <path d="M36 22v48M60 30v48"/>
-              <path d="M48 20c-8 0-13 6-13 13 0 10 13 23 13 23s13-13 13-23c0-7-5-13-13-13z" fill="#1D5BD8"/>
-              <circle cx="48" cy="33" r="5" fill="#FF6F5E"/>
-            </svg>
-          </div>
+      <ol class="grid-3 steps reveal">
+        <li class="card-color is-sun">
+          <span class="card-label">Step 1</span>
           <h3>Tell us your trip.</h3>
           <p>Where, when and what you've got planned. Save your sizes and style once.</p>
+          <svg class="card-art" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <path class="fa" d="M14 30l22-8 24 8 22-8v48l-22 8-24-8-22 8z"/>
+            <path d="M36 22v48M60 30v48"/>
+            <path class="fc" d="M48 20c-8 0-13 6-13 13 0 10 13 23 13 23s13-13 13-23c0-7-5-13-13-13z"/>
+            <circle class="fb" cx="48" cy="33" r="5"/>
+          </svg>
         </li>
-        <li class="card card-outline reveal">
-          <div class="step-top">
-            <span class="step-num" aria-hidden="true">2</span>
-            <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-              <path d="M44 18a4 4 0 1 1 6 3.5c-1.5 1-2 2-2 3.5v3"/>
-              <path d="M48 28L16 44h64z"/>
-              <path d="M30 44l-12 8 6 10 8-5v27h32V57l8 5 6-10-12-8" fill="#FF6F5E"/>
-              <path d="M40 44c2 5 14 5 16 0"/>
-            </svg>
-          </div>
+        <li class="card-color is-blue">
+          <span class="card-label">Step 2</span>
           <h3>Choose your outfits, or let us.</h3>
           <p>Browse what local stores have in stock, or we pick from your preferences.</p>
+          <svg class="card-art" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <path d="M44 18a4 4 0 1 1 6 3.5c-1.5 1-2 2-2 3.5v3"/>
+            <path class="fc" d="M48 28L16 44h64z"/>
+            <path class="fa" d="M30 44l-12 8 6 10 8-5v27h32V57l8 5 6-10-12-8"/>
+            <path d="M40 44c2 5 14 5 16 0"/>
+            <circle class="fb" cx="48" cy="68" r="5"/>
+          </svg>
         </li>
-        <li class="card card-outline reveal">
-          <div class="step-top">
-            <span class="step-num" aria-hidden="true">3</span>
-            <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-              <path d="M22 36h52l-4 44H26z" fill="#1D5BD8"/>
-              <path d="M36 36v-6a12 12 0 0 1 24 0v6"/>
-              <path d="M58 50l8 8M66 50l-8 8" stroke="#FFF8EE"/>
-              <path d="M36 56l5 5 9-10" fill="none"/>
-            </svg>
-          </div>
+        <li class="card-color is-mint">
+          <span class="card-label">Step 3</span>
           <h3>Wear it. Return it.</h3>
           <p>Hand everything back before you fly home. Love a piece? You can buy it.</p>
+          <svg class="card-art" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <path class="fb" d="M22 36h52l-4 44H26z"/>
+            <path d="M36 36v-6a12 12 0 0 1 24 0v6"/>
+            <path class="fa" d="M36 58l7 7 17-18" fill="none" stroke-width="4"/>
+          </svg>
         </li>
       </ol>
     </div>
   </section>
 
   <section class="section bg-paper" id="wardrobe" aria-labelledby="wardrobe-title">
-    <div class="container split">
+    <div class="container narrow split">
       <div class="photo split-photo reveal">
         <img alt="A white clothes rail with floral, patterned and orange blouses on wooden hangers, beside a sunny window" src="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=500&amp;auto=format&amp;fit=crop 500w, https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w" sizes="(min-width: 861px) 45vw, 100vw" width="900" height="1125" loading="lazy" />
       </div>
@@ -468,31 +493,31 @@
         <span class="eyebrow">Destinations</span>
         <h2 id="destinations-title" class="words">Where we're starting.</h2>
       </div>
-      <div class="dest-grid">
-        <figure class="dest reveal">
-          <div class="photo"><img alt="Pink Street, Lisbon" src="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" /></div>
-          <figcaption>
+      <div class="dest-grid reveal">
+        <figure class="card-photo dest">
+          <img alt="Pink Street, Lisbon" src="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" />
+          <figcaption class="card-panel">
             <div class="dest-top"><h3>Lisbon</h3><span class="badge">Opening first</span></div>
             <p>Warm most of the year, walkable, and full of great local stores.</p>
           </figcaption>
         </figure>
-        <figure class="dest reveal">
-          <div class="photo"><img alt="Quito, Ecuador, with mountains in the background" src="https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" /></div>
-          <figcaption>
+        <figure class="card-photo dest">
+          <img alt="Quito, Ecuador, with mountains in the background" src="https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1641973240236-250ec59abb1c?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" />
+          <figcaption class="card-panel">
             <div class="dest-top"><h3>Quito</h3><span class="badge badge-outline">Spring all year</span></div>
             <p>Mild every month, so the same light layers work for every trip.</p>
           </figcaption>
         </figure>
-        <figure class="dest reveal">
-          <div class="photo"><img alt="People walking past a building in Mexico City in daylight" src="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" /></div>
-          <figcaption>
+        <figure class="card-photo dest">
+          <img alt="People walking past a building in Mexico City in daylight" src="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" />
+          <figcaption class="card-panel">
             <div class="dest-top"><h3>Mexico City</h3><span class="badge badge-outline">Winter escape</span></div>
             <p>Long stays, mild weather, and neighbourhoods full of independent shops.</p>
           </figcaption>
         </figure>
-        <figure class="dest reveal">
-          <div class="photo"><img alt="A bicycle parked against a building in Copenhagen" src="https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" /></div>
-          <figcaption>
+        <figure class="card-photo dest">
+          <img alt="A bicycle parked against a building in Copenhagen" src="https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1644153505848-3269ad9bcf58?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" />
+          <figcaption class="card-panel">
             <div class="dest-top"><h3>Copenhagen</h3><span class="badge badge-outline">Summer</span></div>
             <p>Layers you need for one week and never again. We've got them.</p>
           </figcaption>
@@ -501,36 +526,53 @@
     </div>
   </section>
 
-  <section class="section bg-sand who" id="who" aria-labelledby="who-title">
-    <div class="container split">
-      <div class="photo split-photo reveal">
-        <img alt="A young man with a mint-green backpack standing on a sunny cobblestone street lined with yellow houses" src="https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=500&amp;auto=format&amp;fit=crop 500w, https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w" sizes="(min-width: 861px) 45vw, 100vw" width="900" height="1125" loading="lazy" />
-      </div>
-      <div class="split-copy">
-        <div class="section-head reveal" style="margin-bottom: 0;">
+  <section class="section bg-paper who" id="who" aria-labelledby="who-title">
+    <div class="bleed-row reveal">
+      <figure class="card-photo who-intro">
+        <img alt="A young man with a mint-green backpack standing on a sunny cobblestone street lined with yellow houses" src="https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=700&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=700&amp;auto=format&amp;fit=crop 700w" sizes="(min-width: 1025px) 25vw, (min-width: 601px) 50vw, 80vw" width="700" height="875" loading="lazy" />
+        <figcaption class="card-panel">
           <span class="eyebrow">Who it's for</span>
-          <h2 id="who-title" class="words">Made for people who'd rather be out there.</h2>
-        </div>
-        <div class="options">
-          <article class="card card-paper reveal">
-            <h3>Weekenders</h3>
-            <p>Fly carry-on only. Skip the bag drop and the baggage belt.</p>
-          </article>
-          <article class="card card-paper reveal">
-            <h3>Long stays</h3>
-            <p>A month away without a month of clothes. Swap when the weather turns.</p>
-          </article>
-          <article class="card card-paper reveal">
-            <h3>Frequent flyers</h3>
-            <p>Stop repacking every week. Your wardrobe meets you there.</p>
-          </article>
-        </div>
-      </div>
+          <h2 id="who-title">Made for people who'd rather be out there.</h2>
+        </figcaption>
+      </figure>
+      <article class="card-color is-coral">
+        <span class="card-label">Short trips</span>
+        <h3>Weekenders</h3>
+        <p>Fly carry-on only. Skip the bag drop and the baggage belt.</p>
+        <svg class="card-art" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+          <rect class="fa" x="18" y="34" width="60" height="42" rx="12"/>
+          <path d="M36 34v-6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v6"/>
+          <path d="M18 52h60"/>
+          <rect class="fb" x="42" y="47" width="12" height="10" rx="3"/>
+        </svg>
+      </article>
+      <article class="card-color is-navy">
+        <span class="card-label">A month or more</span>
+        <h3>Long stays</h3>
+        <p>A month away without a month of clothes. Swap when the weather turns.</p>
+        <svg class="card-art" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+          <rect class="fc" x="18" y="24" width="60" height="54" rx="10"/>
+          <path class="fa" d="M18 34a10 10 0 0 1 10-10h40a10 10 0 0 1 10 10v6H18z"/>
+          <path d="M34 16v14M62 16v14"/>
+          <circle class="fb" cx="36" cy="56" r="4"/><circle class="fb" cx="48" cy="56" r="4"/><circle class="fb" cx="60" cy="56" r="4"/>
+          <circle class="fa" cx="36" cy="68" r="4"/><circle class="fa" cx="48" cy="68" r="4"/>
+        </svg>
+      </article>
+      <article class="card-color is-blue">
+        <span class="card-label">Every week</span>
+        <h3>Frequent flyers</h3>
+        <p>Stop repacking every week. Your wardrobe meets you there.</p>
+        <svg class="card-art" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+          <path class="fa" d="M80 22c4-4-2-10-6-6L60 30 24 22l-6 6 28 16-12 14-10-2-4 4 12 8 8 12 4-4-2-10 14-12 16 28 6-6-8-36z"/>
+          <path d="M12 84h24" stroke-width="4"/>
+          <circle class="fb" cx="46" cy="84" r="3"/>
+        </svg>
+      </article>
     </div>
   </section>
 
   <section class="section bg-paper" id="faq" aria-labelledby="faq-title">
-    <div class="container">
+    <div class="container narrow">
       <div class="section-head center reveal">
         <span class="eyebrow">FAQ</span>
         <h2 id="faq-title" class="words">Good questions.</h2>
@@ -538,8 +580,7 @@
       <div class="faq">
         <details><summary>Is this rental or do I buy the clothes?</summary><p>It's rental. You wear the pieces on your trip and hand them back. If you love something, you can buy it. That's optional.</p></details>
         <details><summary>Can I choose my own outfits?</summary><p>Yes. Browse what's in stock in your city and pick. Or set your preferences and we'll choose for you.</p></details>
-        <details><summary>Who owns the clothes?</summary><p>Local stores in each city. They list their pieces on Packless. We don't keep our own stock.</p></details>
-        <details><summary>How do you choose partner stores?</summary><p>Every store must meet our standards: pieces are condition checked, professionally cleaned, and measured so sizes are documented properly.</p></details>
+        <details><summary>Who owns the clothes?</summary><p>Local stores in each city. They list their pieces on Packless. We don't keep our own stock. Every store meets our standards: pieces are condition checked, professionally cleaned, and measured so sizes are documented properly.</p></details>
         <details><summary>How much does it cost?</summary><p>We'll share prices before launch. People on the waitlist hear first. Joining the waitlist is free.</p></details>
         <details><summary>How do you know my size?</summary><p>You save your sizes once. Every piece has measured, documented sizing, so you can check the fit before you pick it.</p></details>
         <details><summary>What if something doesn't fit?</summary><p>Tell us. We'll swap it while you're there.</p></details>
