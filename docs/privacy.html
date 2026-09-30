@@ -6,30 +6,42 @@
 <title>Privacy Policy — Packless</title>
 <meta name="description" content="How Packless collects and uses the email address you submit through our signup forms.">
 <link rel="canonical" href="https://packless.loupfashion.pt/privacy.html" />
+<meta name="theme-color" content="#3AA8FF">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@200;300;400;500;600&display=swap" media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@200;300;400;500;600&display=swap" /></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" /></noscript>
 <style>
-  html, body { margin: 0; padding: 0; background: #F3F6FB; }
-  * { box-sizing: border-box; }
-  a { color: #0052A5; text-decoration: none; }
-  a:hover { color: #012A6B; }
-  ::selection { background: #012A6B; color: #EEF3FA; }
-  body { color: #0F2B52; font-family: Archivo, system-ui, sans-serif; font-weight: 300; overflow-x: hidden; }
-  main { max-width: 68ch; margin: 0 auto; padding: 56px clamp(24px, 8vw, 120px) 96px; }
-  h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(36px, 7vw, 52px); line-height: 1.05; margin: 0 0 8px; }
-  h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 24px; margin: 40px 0 12px; }
-  p, li { font-size: 15px; line-height: 1.65; margin: 0 0 14px; }
-  ul { padding-left: 20px; margin: 0 0 14px; }
-  .updated { font-size: 12px; color: #4A6082; letter-spacing: 0.04em; margin-bottom: 40px; }
+  :root { --sky: #3AA8FF; --paper: #FFF8EE; --navy: #0B1D3A; --navy-soft: #33456A; --coral: #FF6F5E; --gutter: clamp(20px, 6vw, 80px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); overflow-x: clip; }
+  body { color: var(--navy); font-family: Nunito, ui-rounded, system-ui, sans-serif; font-weight: 400; }
+  a { color: var(--navy); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--coral); }
+  ::selection { background: var(--navy); color: var(--paper); }
+  :focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+  .container { max-width: 1280px; margin-inline: auto; padding-inline: var(--gutter); }
+  .site-header { background: var(--sky); }
+  .site-header .container { display: flex; align-items: center; min-height: 96px; }
+  .wordmark { font-family: Fredoka, ui-rounded, system-ui, sans-serif; font-weight: 600; font-size: 28px; text-decoration: none; }
+  main { max-width: calc(68ch + 2 * var(--gutter)); margin: 0 auto; padding: clamp(48px, 7vw, 88px) var(--gutter) clamp(72px, 10vw, 128px); }
+  h1, h2 { font-family: Fredoka, ui-rounded, system-ui, sans-serif; font-weight: 600; letter-spacing: 0.25px; text-wrap: balance; }
+  h1 { font-size: clamp(36px, 7vw, 56px); line-height: 1.05; margin: 0 0 12px; }
+  h2 { font-size: 26px; line-height: 1.2; margin: 44px 0 12px; }
+  p, li { font-size: 17px; line-height: 1.6; margin: 0 0 14px; }
+  ul { padding-left: 22px; margin: 0 0 14px; }
+  .updated { font-size: 15px; font-weight: 700; color: var(--navy-soft); margin-bottom: 40px; }
+  .footer { padding-block: 40px; }
+  .footer .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; }
+  .footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; font-weight: 600; font-size: 16px; }
+  .footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
 </style>
 </head>
 <body>
 <div>
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 28px clamp(24px, 8vw, 120px) 0;">
-    <a href="/" style="font-family: 'Instrument Serif', serif; font-size: 22px; letter-spacing: 0.01em; color: #012A6B;">Packless</a>
+  <header class="site-header">
+    <div class="container"><a class="wordmark" href="/" aria-label="Packless home">Packless</a></div>
   </header>
 
   <main>
@@ -39,7 +51,7 @@
     <p>Packless ("we," "us," "our") operates a pre-launch website at packless.loupfashion.pt. This policy explains what information we collect from you on that site and what we do with it. We collect very little today, and we intend to keep it that way.</p>
 
     <h2>What we collect</h2>
-    <p>The only personal information our site currently collects is the email address you choose to submit through our "Get early access" or "Join the early list" signup forms. We do not use cookies, analytics, or any tracking technology on this site as of the date above.</p>
+    <p>The only personal information our site currently collects is the email address you choose to submit through our "Join the waitlist" signup forms. We do not use cookies, analytics, or any tracking technology on this site as of the date above.</p>
 
     <h2>How submissions are processed</h2>
     <p>When you submit the signup form, your email address is sent directly to <strong>Web3Forms</strong> (web3forms.com), a third-party form-processing service we use to receive and forward submissions to us. Web3Forms acts as our data processor for this purpose. You can read their own privacy policy at <a href="https://web3forms.com/privacy" target="_blank" rel="noopener">web3forms.com/privacy</a>. Because Web3Forms is a US-based service, your email address may be processed outside the European Economic Area.</p>
@@ -68,11 +80,14 @@
     <p>Questions about this policy? Email <a href="mailto:hello@packless.loupfashion.pt">hello@packless.loupfashion.pt</a>.</p>
   </main>
 
-  <footer style="padding: 30px clamp(24px, 8vw, 120px) 34px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-top: 1px solid rgba(1,42,107,0.14); background: #F3F6FB;">
-    <span style="font-family: 'Instrument Serif', serif; font-size: 18px; color: #0F2B52;">Packless</span>
-    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-      <span style="font-size: 11px; font-weight: 300; color: #4A6082; text-align: right;">hello@packless.loupfashion.pt · 2026</span>
-      <span style="font-size: 11px; font-weight: 300; color: #4A6082;"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
+  <footer class="footer">
+    <div class="container">
+      <a class="wordmark" href="/" aria-label="Packless home">Packless</a>
+      <nav aria-label="Footer">
+        <a href="mailto:hello@packless.loupfashion.pt">hello@packless.loupfashion.pt</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
     </div>
   </footer>
 </div>
