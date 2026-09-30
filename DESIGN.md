@@ -109,7 +109,6 @@ spacing:
   card-pad: clamp(24px, 3vw, 36px)  # --card-pad, padding of every card
   container: 1280px  # --max, wide tier (including gutters)
   container-narrow: 960px  # --max-narrow, narrow tier content width
-  bleed: 12px  # --bleed, outer gutter and gap of full-bleed card rows
   grid-gap: clamp(16px, 2.5vw, 32px)  # three-column grids
   nav-height: 96px
   touch-target-min: 44px
@@ -247,13 +246,13 @@ Visually the page follows the Dopper reference's structure. Colour-blocked bands
 
 The page is a vertical stack of modules in **three width tiers**. Contrast between full-bleed and narrow modules gives the page rhythm, as on the reference.
 
-- **Full-bleed:** hero band (blue), the "Who it's for" card row (edge to edge with a 12px outer gutter and 12px gaps), the partner-store photo band, and the closing CTA band (blue).
-- **Wide** (`.container`, max 1280px including gutters): How it works, Membership, Destinations.
+- **Full-bleed:** hero band (blue), the partner-store photo band, and the closing CTA band (blue).
+- **Wide** (`.container`, max 1280px including gutters): How it works, Membership, Destinations, Who it's for.
 - **Narrow** (`.container.narrow`, 960px content): the problem line, "Two ways to get dressed" and the FAQ.
-- **Band order:** hero (blue) → problem (paper) → how it works (paper) → two ways (paper) → membership (paper) → partner stores (photo + panel) → destinations (paper) → who it's for (paper, full-bleed cards) → FAQ (paper) → closing CTA (blue) → footer (paper with a divider).
+- **Band order:** hero (blue) → problem (paper) → how it works (paper) → two ways (paper) → membership (paper) → partner stores (photo + panel) → destinations (paper) → who it's for (paper) → FAQ (paper) → closing CTA (blue) → footer (paper with a divider).
 - **Spacing:** every section uses `--section-y`. Consecutive paper sections drop their top padding (`.bg-paper + .bg-paper`), so the gap between modules is always one section's padding. Every container uses `--gutter` and every card uses `--card-pad`.
-- **Grids:** three equal columns (`repeat(3, minmax(0, 1fr))`, stretched to equal height) for steps and plans, stacking below 860px. Destinations use 4 columns, then 2 at 1024px and below, then a horizontal scroll-snap row (78% cards) at 600px and below. The Who it's for row uses 4 columns, then 2×2 at 1024px and below, then a scroll-snap row (80% cards) at 600px and below. Scroll rows scroll inside themselves, never the page.
-- **Image and copy alternation:** hero (copy left, photo right), then Two ways (photo left, copy right).
+- **Grids:** three equal columns (`repeat(3, minmax(0, 1fr))`, stretched to equal height) for steps and plans, stacking below 860px. Destinations use 4 columns, then 2 at 1024px and below, then a horizontal scroll-snap row (78% cards) at 600px and below. Scroll rows scroll inside themselves, never the page.
+- **Image and copy alternation:** hero (copy left, photo right), then Two ways (photo left, copy right), then Who it's for (copy left, photo right; photo on top below 860px).
 - **No sideways scroll:** `overflow-x: clip` on html and body, and it's verified at 320, 375, 768, 1024 and 1440px.
 - **Touch targets:** buttons are at least 46px tall, footer links 44px.
 
@@ -273,9 +272,9 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 
 - **Buttons:** coral pill with navy text is the only primary CTA ("Join the waitlist"). The secondary button is a transparent pill with a 2px navy outline that fills navy with paper text on hover. Hover lifts 2px with the bounce easing.
 - **Waitlist form:** one component used in the hero and the closing CTA. It's a paper pill with a navy border holding the email input and a coral submit button. Below 520px it stacks into a 20px-radius box. It has a hidden honeypot field, and a note line under it (paper at 90% on blue). Submissions go to Web3Forms.
-- **Outlined cards** (`.card-outline`) hold structural content: the Two ways options and the Membership plans. The featured plan is a blue card with paper text, a coral "Most travelers" badge, paper-ringed tick dots and a paper dashed divider. Each plan ends with "Pricing announced at launch", then a full-width button pinned to the bottom so buttons line up across the row.
-- **Colour cards** (`.card-color` plus `.is-blue`, `.is-navy`, `.is-coral`, `.is-sun`, `.is-mint`), modelled on Dopper's Tap / Map row. Each is one flat fill with a card label, title and one line of text at the top, and a large flat spot illustration anchored bottom-right, "standing" on the colour. There's no border or background image. Hover lifts the card 4px and tilts the art -4deg. Used in How it works (sun, blue, mint) and Who it's for (coral, navy, blue).
-- **Photo cards** (`.card-photo`): the photo fills the card with no tint, and all text sits inside a paper panel (`.card-panel`) inset 12px at the bottom. Used for the Who it's for intro card and the four destination cards (4:5).
+- **Outlined cards** (`.card-outline`) hold structural content: the Two ways options, the Who it's for personas and the Membership plans. The featured plan is a blue card with paper text, a coral "Most travelers" badge, paper-ringed tick dots and a paper dashed divider. Each plan ends with "Pricing announced at launch", then a full-width button pinned to the bottom so buttons line up across the row.
+- **Colour cards** (`.card-color` plus `.is-blue`, `.is-navy`, `.is-coral`, `.is-sun`, `.is-mint`), modelled on Dopper's Tap / Map row. Each is one flat fill with a card label, title and one line of text at the top, and a large flat spot illustration anchored bottom-right, "standing" on the colour. There's no border or background image. Hover lifts the card 4px and tilts the art -4deg. Used in How it works (sun, blue, mint). Navy and coral variants are defined for future rows.
+- **Photo cards** (`.card-photo`): the photo fills the card with no tint, and all text sits inside a paper panel (`.card-panel`) inset 12px at the bottom. Used for the four destination cards (4:5).
 - **Panel over photo** (`.photo-band` + `.panel`): a full-bleed store photo with a 560px paper panel carrying the partner-standards copy. Below 760px the photo becomes a 4:3 block and the panel overlaps it by 48px with a navy outline.
 - **Badges:** coral pill (navy text) for highlights ("Opening first", "Easiest", "Most travelers"), paper in the hero, and an outline variant for neutral tags.
 - **Tick list:** a 16px coral dot with a navy ring (paper ring on blue).
@@ -289,8 +288,8 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - Do use coral for CTAs and small highlights. At most one coral colour card per row, and never put a button on it.
 - Do pair text by the fill: paper on blue and navy, navy on everything else.
 - Do put text on photos only inside a solid paper panel.
-- Do use colour cards for friendly, scannable content (steps, personas) and outlined cards for structural content (options, plans, FAQ).
-- Do vary width: full-bleed for bands and card rows, wide for grids, narrow for text-led modules.
+- Do use colour cards for friendly, scannable content (steps) and outlined cards for structural content (options, personas, plans, FAQ).
+- Do vary width: full-bleed for bands, wide for grids and image/copy modules, narrow for text-led modules.
 - Do keep the hero H1 as two sentences on two lines.
 - Do honour the 44px minimum touch target.
 - Don't tint or overlay photos with brand colours.
@@ -302,7 +301,7 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 
 ## Imagery & Photography
 
-- **Lifestyle over scenery.** People wearing great outfits in real city streets say the product in one frame (the hero's yellow puffer jacket, the backpack traveller). Scenery-only shots are kept for destinations.
+- **Lifestyle over scenery.** People wearing great outfits in real city streets say the product in one frame (the hero's yellow puffer jacket, and the backpack traveller framed beside the Who it's for personas). Scenery-only shots are kept for destinations.
 - **One main photo per module,** framed with a 20px radius and generous paper around it. The exceptions are the full-bleed partner-store band and the destination row (four cards, a deliberate choice).
 - **One neutral grade on every photo:** `filter: saturate(1.08) contrast(1.04)`. No brand-colour overlays.
 - **Consistent crops:** destination cards are all 4:5 and centred. The hero is 4:5 on desktop and 4:3 below 900px, focused at 25% from the top to keep the face in frame.
