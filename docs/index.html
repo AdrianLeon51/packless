@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Packless — Pack nothing. Wear everything.</title>
 <meta name="description" content="Rent a curated travel wardrobe from local stores, waiting where you land. Buy only what you love.">
-<meta name="theme-color" content="#3AA8FF">
+<meta name="theme-color" content="#1D5BD8">
 <link rel="canonical" href="https://packless.loupfashion.pt/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preload" as="image" href="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=65&w=1200&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=65&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=65&w=900&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=65&w=1200&auto=format&fit=crop 1200w" imagesizes="(min-width: 900px) 42vw, 100vw" fetchpriority="high" />
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&q=65&w=1200&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&q=65&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&q=65&w=900&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&q=65&w=1200&auto=format&fit=crop 1200w" imagesizes="(min-width: 900px) 42vw, 100vw" fetchpriority="high" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Packless" />
 <meta property="og:title" content="Packless — Pack nothing. Wear everything." />
@@ -50,20 +50,22 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" /></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700&family=Figtree:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@600;700&family=Figtree:wght@400;600;700;800&display=swap" /></noscript>
 <style>
   :root {
-    /* Two background tones only: sky and paper. Coral is for CTAs and small highlights. */
-    --sky: #3AA8FF;
+    /* Azulejo palette: tile blue bookends the page, paper and sand carry the middle.
+       Coral is for CTAs and small highlights only. Text on blue is always paper. */
+    --blue: #1D5BD8;
     --paper: #FFF8EE;
+    --sand: #F4E6CC;
     --navy: #0B1D3A;
     --navy-soft: #33456A; /* paper backgrounds only */
-    --coral: #FF6F5E;
-    --coral-hover: #FF5A47;
+    --coral: #FF7A59;
+    --coral-hover: #FF6A45;
 
-    --font-display: Fredoka, ui-rounded, "Arial Rounded MT Bold", system-ui, sans-serif;
-    --font-body: Nunito, ui-rounded, system-ui, sans-serif;
+    --font-display: Rubik, ui-rounded, system-ui, sans-serif;
+    --font-body: Figtree, system-ui, sans-serif;
 
     --radius: 20px;
     --radius-pill: 999px;
@@ -86,8 +88,11 @@
   ::selection { background: var(--navy); color: var(--paper); }
   :focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
   h1, h2, h3, p { margin: 0; }
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.25px; overflow-wrap: break-word; text-wrap: balance; }
-  h1 { font-size: clamp(44px, 8vw, 96px); line-height: 1; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; overflow-wrap: break-word; text-wrap: balance; }
+  /* Each sentence of the headline stays on one line: "Wear everything." is ~8.25em wide. */
+  h1 { font-size: clamp(40px, 5.2vw, 76px); line-height: 1.02; }
+  @media (max-width: 900px) { h1 { font-size: clamp(32px, 10vw, 64px); } }
+  h1 .line { display: block; }
   h2 { font-size: clamp(32px, 5vw, 56px); line-height: 1.08; }
   h3 { font-size: 24px; line-height: 1.2; }
   .intro { font-size: clamp(19px, 2vw, 22px); line-height: 1.45; font-weight: 600; }
@@ -99,9 +104,11 @@
   /* ---- Layout ---- */
   .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
   .section { padding-block: var(--section-y); }
-  .bg-sky { background: var(--sky); }
+  .bg-blue { background: var(--blue); color: var(--paper); }
+  .bg-blue :focus-visible, .bg-blue .waitlist:focus-within { outline-color: var(--paper); }
   .bg-paper { background: var(--paper); }
-  .bg-paper + .bg-paper, .bg-sky + .bg-sky { padding-top: 0; }
+  .bg-sand { background: var(--sand); }
+  .bg-paper + .bg-paper, .bg-sand + .bg-sand { padding-top: 0; }
   .section-head { display: flex; flex-direction: column; gap: 16px; max-width: 720px; margin-bottom: clamp(40px, 5vw, 64px); }
   .section-head.center { margin-inline: auto; text-align: center; align-items: center; }
   .eyebrow { font-weight: 800; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -112,11 +119,12 @@
   /* ---- Components ---- */
   .card { display: flex; flex-direction: column; gap: 14px; padding: var(--card-pad); border-radius: var(--radius); }
   .card-outline { border: 2px solid var(--navy); background: var(--paper); }
-  .card-sky { background: var(--sky); }
+  .card-blue { background: var(--blue); color: var(--paper); }
+  .card-blue :focus-visible { outline-color: var(--paper); }
   .card-paper { background: var(--paper); }
   .card p { color: inherit; }
-  .bg-paper .card p { color: var(--navy-soft); }
-  .bg-paper .card.card-sky p { color: var(--navy); }
+  .bg-paper .card p, .bg-sand .card p { color: var(--navy-soft); }
+  .bg-paper .card.card-blue p { color: var(--paper); }
 
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border-radius: var(--radius-pill); border: 2px solid var(--navy); font-family: var(--font-body); font-weight: 800; font-size: 17px; line-height: 1; color: var(--navy); background: transparent; text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform 250ms var(--ease-bounce), background-color 200ms linear, color 200ms linear; }
   .btn:hover { transform: translateY(-2px); background: var(--navy); color: var(--paper); text-decoration: none; }
@@ -151,16 +159,17 @@
 
   /* ---- Nav + hero ---- */
   .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 96px; }
-  .wordmark { font-family: var(--font-display); font-weight: 600; font-size: 28px; letter-spacing: 0.25px; text-decoration: none; }
+  .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 28px; letter-spacing: -0.01em; text-decoration: none; }
   .nav .btn { min-height: 46px; padding: 0 22px; font-size: 16px; }
 
   .hero { padding-bottom: var(--section-y); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-top: clamp(16px, 4vw, 48px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-top: clamp(16px, 4vw, 48px); }
   .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-width: 0; }
   .hero-copy .badge { background: var(--paper); }
+  .hero .form-note, .cta .form-note { color: rgba(255, 248, 238, 0.9); }
   .hero-copy .intro { max-width: 30ch; }
   .hero-photo { aspect-ratio: 4 / 5; max-height: 640px; width: 100%; }
-  .hero-photo img { animation: settle 1.2s var(--ease-out) both; }
+  .hero-photo img { object-position: center 25%; animation: settle 1.2s var(--ease-out) both; }
   @keyframes settle { from { transform: scale(1.06); } to { transform: none; } }
   .hero-copy .intro + p { max-width: 38ch; }
   @media (max-width: 900px) {
@@ -177,7 +186,7 @@
 
   /* ---- Steps ---- */
   .step-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .step-num { font-family: var(--font-display); font-weight: 600; font-size: 20px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--sky); flex: none; }
+  .step-num { font-family: var(--font-display); font-weight: 700; font-size: 20px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: var(--paper); flex: none; }
   .spot { width: 96px; height: 96px; flex: none; }
 
   /* ---- Split (wardrobe) ---- */
@@ -187,6 +196,7 @@
   .options { display: flex; flex-direction: column; gap: 16px; }
   .options .card { gap: 10px; }
   .options .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .split-copy > .btn { align-self: flex-start; }
   @media (max-width: 860px) {
     .split { grid-template-columns: minmax(0, 1fr); }
     .split-photo { aspect-ratio: 4 / 3; }
@@ -214,6 +224,9 @@
   .plan .btn { width: 100%; }
   .plan-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 30px; }
   .plan-label { font-weight: 800; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .card-blue.plan .tick-list { color: var(--paper); }
+  .card-blue .tick-list li::before { box-shadow: inset 0 0 0 2px var(--paper); }
+  .card-blue.plan .price { color: var(--paper); border-top-color: rgba(255, 248, 238, 0.4); }
 
   /* ---- Destinations ---- */
   .dest-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
@@ -227,15 +240,17 @@
     .dest { scroll-snap-align: start; }
   }
 
-  /* ---- Who it's for ---- */
-  .who .spot { width: 80px; height: 80px; }
+  /* ---- Who it's for (mirrors Two ways: copy left, photo right) ---- */
+  .who .split-photo { order: 2; }
+  @media (max-width: 860px) { .who .split-photo { order: 0; } }
 
   /* ---- FAQ ---- */
-  .faq { max-width: 860px; margin-inline: auto; display: flex; flex-direction: column; gap: 12px; }
-  .faq details { border: 2px solid var(--navy); border-radius: var(--radius); background: var(--paper); }
-  .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px var(--card-pad); min-height: 64px; font-family: var(--font-display); font-weight: 500; font-size: 21px; line-height: 1.3; }
+  .faq { max-width: 1100px; margin-inline: auto; }
+  .faq details { border: 2px solid var(--navy); border-radius: var(--radius); background: var(--paper); margin-bottom: 12px; break-inside: avoid; }
+  @media (min-width: 900px) { .faq { columns: 2; column-gap: 16px; } }
+  .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px var(--card-pad); min-height: 64px; font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.3; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: ""; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--sky) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 9v14M9 16h14' stroke='%230B1D3A' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% no-repeat; transition: transform 350ms var(--ease-bounce); }
+  .faq summary::after { content: ""; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 9v14M9 16h14' stroke='%23FFF8EE' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% no-repeat; transition: transform 350ms var(--ease-bounce); }
   .faq details[open] summary::after { transform: rotate(45deg); }
   .faq details p { padding: 0 var(--card-pad) 22px; color: var(--navy-soft); max-width: 62ch; }
 
@@ -248,7 +263,7 @@
   .cta .form-note { margin-top: 0; }
 
   /* ---- Footer ---- */
-  .footer { padding-block: 40px; }
+  .footer { padding-block: 40px; background: var(--sand); }
   .footer .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; }
   .footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; font-weight: 600; font-size: 16px; }
   .footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
@@ -270,7 +285,7 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="bg-sky hero">
+<header class="bg-blue hero">
   <div class="container">
     <nav class="nav" aria-label="Main">
       <a class="wordmark" href="/" aria-label="Packless home">Packless</a>
@@ -280,7 +295,7 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <span class="badge">Clothing rental · Lisbon first</span>
-        <h1 class="words">Pack nothing. Wear everything.</h1>
+        <h1 class="words"><span class="line">Pack nothing.</span> <span class="line">Wear everything.</span></h1>
         <p class="intro">A curated travel wardrobe, waiting where you land.</p>
         <p>Rent outfits from local stores. Pick them yourself or let us. Buy only if you love it.</p>
         <div style="width: 100%;">
@@ -295,7 +310,7 @@
       </div>
 
       <div class="photo hero-photo">
-        <img src="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&amp;q=65&amp;w=1200&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&amp;q=65&amp;w=600&amp;auto=format&amp;fit=crop 600w, https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w, https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&amp;q=65&amp;w=1200&amp;auto=format&amp;fit=crop 1200w" sizes="(min-width: 900px) 42vw, 100vw" alt="A yellow cable car on a Lisbon street under blue sky" width="1200" height="1500" fetchpriority="high" />
+        <img src="https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&amp;q=65&amp;w=1200&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&amp;q=65&amp;w=600&amp;auto=format&amp;fit=crop 600w, https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w, https://images.unsplash.com/photo-1779398741050-1026182f4e7f?fm=jpg&amp;q=65&amp;w=1200&amp;auto=format&amp;fit=crop 1200w" sizes="(min-width: 900px) 42vw, 100vw" alt="A woman in a bright yellow puffer jacket turning toward the sun on a city street" width="1200" height="1500" fetchpriority="high" />
       </div>
     </div>
   </div>
@@ -323,7 +338,7 @@
             <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
               <path d="M14 30l22-8 24 8 22-8v48l-22 8-24-8-22 8z" fill="#FFF8EE"/>
               <path d="M36 22v48M60 30v48"/>
-              <path d="M48 20c-8 0-13 6-13 13 0 10 13 23 13 23s13-13 13-23c0-7-5-13-13-13z" fill="#3AA8FF"/>
+              <path d="M48 20c-8 0-13 6-13 13 0 10 13 23 13 23s13-13 13-23c0-7-5-13-13-13z" fill="#1D5BD8"/>
               <circle cx="48" cy="33" r="5" fill="#FF6F5E"/>
             </svg>
           </div>
@@ -347,7 +362,7 @@
           <div class="step-top">
             <span class="step-num" aria-hidden="true">3</span>
             <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-              <path d="M22 36h52l-4 44H26z" fill="#3AA8FF"/>
+              <path d="M22 36h52l-4 44H26z" fill="#1D5BD8"/>
               <path d="M36 36v-6a12 12 0 0 1 24 0v6"/>
               <path d="M58 50l8 8M66 50l-8 8" stroke="#FFF8EE"/>
               <path d="M36 56l5 5 9-10" fill="none"/>
@@ -360,7 +375,7 @@
     </div>
   </section>
 
-  <section class="section bg-sky" id="wardrobe" aria-labelledby="wardrobe-title">
+  <section class="section bg-sand" id="wardrobe" aria-labelledby="wardrobe-title">
     <div class="container split">
       <div class="photo split-photo reveal">
         <img alt="A white clothes rail with floral, patterned and orange blouses on wooden hangers, beside a sunny window" src="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=500&amp;auto=format&amp;fit=crop 500w, https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w" sizes="(min-width: 861px) 45vw, 100vw" width="900" height="1125" loading="lazy" />
@@ -381,6 +396,7 @@
           </article>
         </div>
         <p class="intro reveal">Either way, it's a rental. Buy a piece only if you want to keep it.</p>
+        <a class="btn btn-coral reveal" href="#waitlist">Join the waitlist</a>
       </div>
     </div>
   </section>
@@ -404,7 +420,7 @@
           <p class="price">Pricing announced at launch.</p>
           <a class="btn" href="#waitlist">Join the waitlist</a>
         </article>
-        <article class="card card-sky plan reveal">
+        <article class="card card-blue plan reveal">
           <div class="plan-head"><span class="plan-label">Two weeks</span><span class="badge">Most travelers</span></div>
           <h3>Fortnight</h3>
           <ul class="tick-list">
@@ -412,7 +428,7 @@
             <li>Delivered to where you stay.</li>
             <li>Swap something mid-trip.</li>
           </ul>
-          <p class="price" style="color: var(--navy);">Pricing announced at launch.</p>
+          <p class="price">Pricing announced at launch.</p>
           <a class="btn btn-coral" href="#waitlist">Join the waitlist</a>
         </article>
         <article class="card card-outline plan reveal">
@@ -485,42 +501,30 @@
     </div>
   </section>
 
-  <section class="section bg-sky who" id="who" aria-labelledby="who-title">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Who it's for</span>
-        <h2 id="who-title" class="words">Made for people who'd rather be out there.</h2>
+  <section class="section bg-sand who" id="who" aria-labelledby="who-title">
+    <div class="container split">
+      <div class="photo split-photo reveal">
+        <img alt="A young man with a mint-green backpack standing on a sunny cobblestone street lined with yellow houses" src="https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=500&amp;auto=format&amp;fit=crop 500w, https://images.unsplash.com/photo-1785591174751-74704adb3c30?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w" sizes="(min-width: 861px) 45vw, 100vw" width="900" height="1125" loading="lazy" />
       </div>
-      <div class="grid-3">
-        <article class="card card-paper reveal">
-          <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <rect x="18" y="34" width="60" height="42" rx="12" fill="#3AA8FF"/>
-            <path d="M36 34v-6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v6"/>
-            <path d="M18 52h60"/>
-            <rect x="42" y="47" width="12" height="10" rx="3" fill="#FF6F5E"/>
-          </svg>
-          <h3>Weekenders</h3>
-          <p>Fly carry-on only. Skip the bag drop and the baggage belt.</p>
-        </article>
-        <article class="card card-paper reveal">
-          <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <rect x="18" y="24" width="60" height="54" rx="10" fill="#FFF8EE"/>
-            <path d="M18 40h60M34 16v14M62 16v14" />
-            <path d="M18 34a10 10 0 0 1 10-10h40a10 10 0 0 1 10 10v6H18z" fill="#3AA8FF"/>
-            <circle cx="36" cy="54" r="3" fill="#0B1D3A" stroke="none"/><circle cx="48" cy="54" r="3" fill="#0B1D3A" stroke="none"/><circle cx="60" cy="54" r="3" fill="#0B1D3A" stroke="none"/>
-            <circle cx="36" cy="66" r="3" fill="#0B1D3A" stroke="none"/><circle cx="48" cy="66" r="5" fill="#FF6F5E"/>
-          </svg>
-          <h3>Long stays</h3>
-          <p>A month away without a month of clothes. Swap when the weather turns.</p>
-        </article>
-        <article class="card card-paper reveal">
-          <svg class="spot" viewBox="0 0 96 96" fill="none" stroke="#0B1D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <path d="M80 22c4-4-2-10-6-6L60 30 24 22l-6 6 28 16-12 14-10-2-4 4 12 8 8 12 4-4-2-10 14-12 16 28 6-6-8-36z" fill="#3AA8FF"/>
-            <path d="M14 82h22" stroke="#FF6F5E" stroke-width="4"/>
-          </svg>
-          <h3>Frequent flyers</h3>
-          <p>Stop repacking every week. Your wardrobe meets you there.</p>
-        </article>
+      <div class="split-copy">
+        <div class="section-head reveal" style="margin-bottom: 0;">
+          <span class="eyebrow">Who it's for</span>
+          <h2 id="who-title" class="words">Made for people who'd rather be out there.</h2>
+        </div>
+        <div class="options">
+          <article class="card card-paper reveal">
+            <h3>Weekenders</h3>
+            <p>Fly carry-on only. Skip the bag drop and the baggage belt.</p>
+          </article>
+          <article class="card card-paper reveal">
+            <h3>Long stays</h3>
+            <p>A month away without a month of clothes. Swap when the weather turns.</p>
+          </article>
+          <article class="card card-paper reveal">
+            <h3>Frequent flyers</h3>
+            <p>Stop repacking every week. Your wardrobe meets you there.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -545,7 +549,7 @@
     </div>
   </section>
 
-  <section class="section bg-sky cta" id="waitlist" aria-labelledby="cta-title">
+  <section class="section bg-blue cta" id="waitlist" aria-labelledby="cta-title">
     <div class="container reveal">
       <h2 id="cta-title" class="words">Travel light this year.</h2>
       <p class="intro">Leave your email. We'll write when your city opens. Early members pick their level first.</p>
@@ -561,7 +565,7 @@
 
 </main>
 
-<footer class="footer bg-paper">
+<footer class="footer">
   <div class="container">
     <a class="wordmark" href="/" aria-label="Packless home">Packless</a>
     <nav aria-label="Footer">
@@ -582,7 +586,8 @@
   var headings = document.querySelectorAll(".words");
   Array.prototype.forEach.call(headings, function (el) {
     var i = 0;
-    Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+    (function split(parent) {
+    Array.prototype.slice.call(parent.childNodes).forEach(function (node) {
       if (node.nodeType === 3) {
         var frag = document.createDocumentFragment();
         node.textContent.split(/(\s+)/).forEach(function (part) {
@@ -596,10 +601,10 @@
         });
         node.parentNode.replaceChild(frag, node);
       } else if (node.nodeType === 1) {
-        node.classList.add("w");
-        node.style.setProperty("--i", i++);
+        split(node);
       }
     });
+    })(el);
   });
 
   var animated = document.querySelectorAll(".reveal, .words");
