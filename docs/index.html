@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Packless — Pack nothing. Wear everything.</title>
-<meta name="description" content="A curated travel wardrobe, waiting where you land. Fly with a carry-on and wear clothes picked for your trip, your weather and your size.">
+<meta name="description" content="Rent a curated travel wardrobe from local stores, waiting where you land. Buy only what you love.">
 <meta name="theme-color" content="#3AA8FF">
 <link rel="canonical" href="https://packless.loupfashion.pt/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Packless" />
 <meta property="og:title" content="Packless — Pack nothing. Wear everything." />
-<meta property="og:description" content="A curated travel wardrobe, waiting where you land." />
+<meta property="og:description" content="Rent a curated travel wardrobe from local stores, waiting where you land. Buy only what you love." />
 <meta property="og:url" content="https://packless.loupfashion.pt/" />
 <meta property="og:image" content="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=80&w=1200&h=630&fit=crop" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Packless — Pack nothing. Wear everything." />
-<meta name="twitter:description" content="A curated travel wardrobe, waiting where you land." />
+<meta name="twitter:description" content="Rent a curated travel wardrobe from local stores, waiting where you land. Buy only what you love." />
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1599069158346-684fee0e414a?fm=jpg&q=80&w=1200&h=630&fit=crop" />
 <script type="application/ld+json">
 {
@@ -28,7 +28,7 @@
   "name": "Packless",
   "url": "https://packless.loupfashion.pt/",
   "email": "hello@packless.loupfashion.pt",
-  "description": "A curated travel wardrobe, waiting where you land."
+  "description": "Rent a curated travel wardrobe from local stores, waiting where you land. Buy only what you love."
 }
 </script>
 <script type="application/ld+json">
@@ -36,13 +36,15 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "How much does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "We'll share prices before launch. People on the waitlist hear first. Joining the waitlist is free." } },
-    { "@type": "Question", "name": "How do you know my size?", "acceptedAnswer": { "@type": "Answer", "text": "You tell us your sizes and how you like things to fit. You do it once. We pick from there." } },
-    { "@type": "Question", "name": "What if something doesn't fit?", "acceptedAnswer": { "@type": "Answer", "text": "Tell us. We'll swap it while you're there." } },
-    { "@type": "Question", "name": "Do I have to give everything back?", "acceptedAnswer": { "@type": "Answer", "text": "No. Return what you borrowed before you fly home. Keep anything that earned a spot in your bag." } },
-    { "@type": "Question", "name": "Where do the clothes come from?", "acceptedAnswer": { "@type": "Answer", "text": "A short list of secondhand shops in each city. We choose them for condition, size range and season." } },
-    { "@type": "Question", "name": "Which cities can I use it in?", "acceptedAnswer": { "@type": "Answer", "text": "Lisbon opens first. Quito, Mexico City and Copenhagen follow. Cities open in stages." } },
-    { "@type": "Question", "name": "What happens when I join the waitlist?", "acceptedAnswer": { "@type": "Answer", "text": "You get one email when your city opens. Nothing to pay today. No spam." } }
+    {"@type":"Question","name":"Is this rental or do I buy the clothes?","acceptedAnswer":{"@type":"Answer","text":"It's rental. You wear the pieces on your trip and hand them back. If you love something, you can buy it. That's optional."}},
+    {"@type":"Question","name":"Can I choose my own outfits?","acceptedAnswer":{"@type":"Answer","text":"Yes. Browse what's in stock in your city and pick. Or set your preferences and we'll choose for you."}},
+    {"@type":"Question","name":"Who owns the clothes?","acceptedAnswer":{"@type":"Answer","text":"Local stores in each city. They list their pieces on Packless. We don't keep our own stock."}},
+    {"@type":"Question","name":"How do you choose partner stores?","acceptedAnswer":{"@type":"Answer","text":"Every store must meet our standards: pieces are condition checked, professionally cleaned, and measured so sizes are documented properly."}},
+    {"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"We'll share prices before launch. People on the waitlist hear first. Joining the waitlist is free."}},
+    {"@type":"Question","name":"How do you know my size?","acceptedAnswer":{"@type":"Answer","text":"You save your sizes once. Every piece has measured, documented sizing, so you can check the fit before you pick it."}},
+    {"@type":"Question","name":"What if something doesn't fit?","acceptedAnswer":{"@type":"Answer","text":"Tell us. We'll swap it while you're there."}},
+    {"@type":"Question","name":"Which cities can I use it in?","acceptedAnswer":{"@type":"Answer","text":"Lisbon opens first. Quito, Mexico City and Copenhagen follow. Cities open in stages."}},
+    {"@type":"Question","name":"What happens when I join the waitlist?","acceptedAnswer":{"@type":"Answer","text":"You get one email when your city opens. Nothing to pay today. No spam."}}
   ]
 }
 </script>
@@ -143,10 +145,9 @@
   .tick-list li { position: relative; padding-left: 30px; }
   .tick-list li::before { content: ""; position: absolute; left: 0; top: 0.42em; width: 16px; height: 16px; border-radius: 50%; background: var(--coral); box-shadow: inset 0 0 0 2px var(--navy); }
 
-  /* Framed photos share one grade */
-  .photo { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--sky); isolation: isolate; }
-  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(1.12) contrast(1.05) brightness(1.03); }
-  .photo::after { content: ""; position: absolute; inset: 0; background: var(--sky); mix-blend-mode: soft-light; opacity: 0.28; pointer-events: none; }
+  /* Framed photos share one neutral grade. No brand-colour overlays on photos. */
+  .photo { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--paper); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(1.08) contrast(1.04); }
 
   /* ---- Nav + hero ---- */
   .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 96px; }
@@ -159,6 +160,9 @@
   .hero-copy .badge { background: var(--paper); }
   .hero-copy .intro { max-width: 30ch; }
   .hero-photo { aspect-ratio: 4 / 5; max-height: 640px; width: 100%; }
+  .hero-photo img { animation: settle 1.2s var(--ease-out) both; }
+  @keyframes settle { from { transform: scale(1.06); } to { transform: none; } }
+  .hero-copy .intro + p { max-width: 38ch; }
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: minmax(0, 1fr); }
     .hero-photo { aspect-ratio: 4 / 3; max-height: none; }
@@ -179,8 +183,28 @@
   /* ---- Split (wardrobe) ---- */
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
   .split-copy { display: flex; flex-direction: column; gap: 24px; }
-  .split-art { background: var(--paper); border-radius: var(--radius); padding: var(--card-pad); }
-  @media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } }
+  .split-photo { aspect-ratio: 4 / 5; max-height: 640px; width: 100%; }
+  .options { display: flex; flex-direction: column; gap: 16px; }
+  .options .card { gap: 10px; }
+  .options .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  @media (max-width: 860px) {
+    .split { grid-template-columns: minmax(0, 1fr); }
+    .split-photo { aspect-ratio: 4 / 3; }
+  }
+
+  /* ---- Panel over photo (partner stores) ---- */
+  .photo-band { position: relative; overflow: hidden; min-height: clamp(560px, 70vw, 760px); display: flex; align-items: center; }
+  .photo-band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(1.08) contrast(1.04); }
+  .photo-band .container { position: relative; }
+  .panel { max-width: 560px; background: var(--paper); border-radius: var(--radius); padding: clamp(28px, 4vw, 48px); display: flex; flex-direction: column; gap: 20px; }
+  .panel p { color: var(--navy-soft); }
+  .panel .tick-list strong { color: var(--navy); }
+  @media (max-width: 760px) {
+    .photo-band { display: block; min-height: 0; background: var(--paper); padding-bottom: var(--section-y); }
+    .photo-band > img { position: static; height: auto; aspect-ratio: 4 / 3; }
+    .photo-band .panel { margin-top: -48px; border: 2px solid var(--navy); }
+    .photo-band + .section { padding-top: 0; }
+  }
 
   /* ---- Membership ---- */
   .plan { gap: 16px; }
@@ -237,6 +261,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .reveal, .js .words .w { opacity: 1; transform: none; transition: none; }
+    .hero-photo img { animation: none; }
     .btn, .faq summary::after { transition: none; }
   }
 </style>
@@ -254,9 +279,10 @@
 
     <div class="hero-grid">
       <div class="hero-copy">
-        <span class="badge">Pre-launch · Lisbon first</span>
+        <span class="badge">Clothing rental · Lisbon first</span>
         <h1 class="words">Pack nothing. Wear everything.</h1>
         <p class="intro">A curated travel wardrobe, waiting where you land.</p>
+        <p>Rent outfits from local stores. Pick them yourself or let us. Buy only if you love it.</p>
         <div style="width: 100%;">
           <form class="waitlist" id="hero-form" novalidate>
             <label class="sr-only" for="hero-email">Email address</label>
@@ -302,7 +328,7 @@
             </svg>
           </div>
           <h3>Tell us your trip.</h3>
-          <p>Where you're going, when, and what you've got planned. Add your sizes once.</p>
+          <p>Where, when and what you've got planned. Save your sizes and style once.</p>
         </li>
         <li class="card card-outline reveal">
           <div class="step-top">
@@ -314,8 +340,8 @@
               <path d="M40 44c2 5 14 5 16 0"/>
             </svg>
           </div>
-          <h3>We pick your wardrobe.</h3>
-          <p>Pieces chosen for your weather and your plans. They're waiting where you stay.</p>
+          <h3>Choose your outfits, or let us.</h3>
+          <p>Browse what local stores have in stock, or we pick from your preferences.</p>
         </li>
         <li class="card card-outline reveal">
           <div class="step-top">
@@ -327,8 +353,8 @@
               <path d="M36 56l5 5 9-10" fill="none"/>
             </svg>
           </div>
-          <h3>Wear it. Leave it or keep it.</h3>
-          <p>Hand back what you borrowed before you fly home. Keep what you love.</p>
+          <h3>Wear it. Return it.</h3>
+          <p>Hand everything back before you fly home. Love a piece? You can buy it.</p>
         </li>
       </ol>
     </div>
@@ -336,42 +362,25 @@
 
   <section class="section bg-sky" id="wardrobe" aria-labelledby="wardrobe-title">
     <div class="container split">
-      <div class="split-copy reveal">
-        <span class="eyebrow">Your curated wardrobe</span>
-        <h2 id="wardrobe-title" class="words">Your trip wardrobe, already picked.</h2>
-        <ul class="tick-list intro" style="font-weight: 600;">
-          <li>Picked for your weather, your plans and your size.</li>
-          <li>Secondhand pieces from local shops we trust.</li>
-          <li>Waiting where you stay when you arrive.</li>
-          <li>Keep anything you love. Return the rest.</li>
-        </ul>
+      <div class="photo split-photo reveal">
+        <img alt="A white clothes rail with floral, patterned and orange blouses on wooden hangers, beside a sunny window" src="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=500&amp;auto=format&amp;fit=crop 500w, https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?fm=jpg&amp;q=65&amp;w=900&amp;auto=format&amp;fit=crop 900w" sizes="(min-width: 861px) 45vw, 100vw" width="900" height="1125" loading="lazy" />
       </div>
-      <div class="split-art reveal">
-        <svg viewBox="0 0 480 400" fill="none" stroke="#0B1D3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Illustration of a clothes rail with a shirt, a dress, a jacket and trousers, with sneakers and a sun hat below" focusable="false">
-          <path d="M40 60h400M60 60v300M420 60v300M40 360h60M380 360h60"/>
-          <!-- hangers -->
-          <path d="M120 60v14M200 60v14M280 60v14M360 60v14"/>
-          <!-- shirt -->
-          <path d="M120 74l-38 20 10 26 12-6v86h32v-86l12 6 10-26z" fill="#FFF8EE"/>
-          <path d="M112 80l8 12 8-12M120 92v68"/>
-          <!-- dress -->
-          <path d="M186 74h28l-2 30 34 110h-92l34-110z" fill="#FF6F5E"/>
-          <path d="M188 104h24"/>
-          <!-- jacket -->
-          <path d="M280 74l-40 18v108h28V110l12-20 12 20v90h28V92z" fill="#3AA8FF"/>
-          <path d="M252 150h14M294 150h14"/>
-          <!-- trousers -->
-          <path d="M340 74h40l6 150h-22l-4-110-4 110h-22z" fill="#FFF8EE"/>
-          <path d="M340 90h40"/>
-          <!-- hat -->
-          <ellipse cx="150" cy="330" rx="54" ry="14" fill="#FFF8EE"/>
-          <path d="M118 326c0-26 64-26 64 0" fill="#FF6F5E"/>
-          <!-- sneakers -->
-          <path d="M250 340v-22c0-6 6-8 10-6l18 10 30 6c8 2 10 12 10 12v0z" fill="#3AA8FF"/>
-          <path d="M250 340h68M268 318l-4 8M280 322l-4 8"/>
-          <path d="M330 340v-22c0-6 6-8 10-6l18 10 30 6c8 2 10 12 10 12v0z" fill="#FFF8EE"/>
-          <path d="M330 340h68"/>
-        </svg>
+      <div class="split-copy">
+        <div class="section-head reveal" style="margin-bottom: 0;">
+          <span class="eyebrow">Your wardrobe</span>
+          <h2 id="wardrobe-title" class="words">Two ways to get dressed.</h2>
+        </div>
+        <div class="options">
+          <article class="card card-paper reveal">
+            <div class="card-top"><h3>Pick it yourself.</h3></div>
+            <p>Browse what's in stock in your city. Filter by size, weather and occasion. Reserve it before you fly.</p>
+          </article>
+          <article class="card card-paper reveal">
+            <div class="card-top"><h3>Let us pick.</h3><span class="badge">Easiest</span></div>
+            <p>Set your sizes, style and plans once. We put the outfits together for you.</p>
+          </article>
+        </div>
+        <p class="intro reveal">Either way, it's a rental. Buy a piece only if you want to keep it.</p>
       </div>
     </div>
   </section>
@@ -381,6 +390,7 @@
       <div class="section-head reveal">
         <span class="eyebrow">Membership levels</span>
         <h2 id="membership-title" class="words">Pick how you travel.</h2>
+        <p class="intro">Every level is a rental. Want to keep a piece? You can buy it.</p>
       </div>
       <div class="grid-3">
         <article class="card card-outline plan reveal">
@@ -388,8 +398,8 @@
           <h3>Carry-on</h3>
           <ul class="tick-list">
             <li>A few pieces per trip.</li>
+            <li>Pick them yourself or let us.</li>
             <li>Collect them in person.</li>
-            <li>Made for long weekends.</li>
           </ul>
           <p class="price">Pricing announced at launch.</p>
           <a class="btn" href="#waitlist">Join the waitlist</a>
@@ -411,11 +421,27 @@
           <ul class="tick-list">
             <li>Every trip of the year.</li>
             <li>In any city we open.</li>
-            <li>A few pieces are yours to keep.</li>
+            <li>Swap pieces on every trip.</li>
           </ul>
           <p class="price">Pricing announced at launch.</p>
           <a class="btn" href="#waitlist">Join the waitlist</a>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="photo-band" id="stores" aria-labelledby="stores-title">
+    <img alt="Inside a small independent clothing store: shirts and jackets on hanging rails, pendant lamps and a shopper browsing by the mirror" src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?fm=jpg&amp;q=65&amp;w=1600&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?fm=jpg&amp;q=65&amp;w=800&amp;auto=format&amp;fit=crop 800w, https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?fm=jpg&amp;q=65&amp;w=1200&amp;auto=format&amp;fit=crop 1200w, https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?fm=jpg&amp;q=65&amp;w=1600&amp;auto=format&amp;fit=crop 1600w" sizes="100vw" width="1600" height="1067" loading="lazy" />
+    <div class="container">
+      <div class="panel reveal">
+        <span class="eyebrow">Where the clothes come from</span>
+        <h2 id="stores-title" class="words">We don't own the clothes. Local stores do.</h2>
+        <p>We partner with independent stores in each city. They list their pieces on Packless. Every partner meets our standards:</p>
+        <ul class="tick-list">
+          <li><strong>Condition checked.</strong> Every piece is inspected before it's listed.</li>
+          <li><strong>Professionally cleaned.</strong> Before every rental.</li>
+          <li><strong>Sized properly.</strong> Every piece is measured and documented, so it fits.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -431,7 +457,7 @@
           <div class="photo"><img alt="Pink Street, Lisbon" src="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1749649144183-0d26edfa748e?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" /></div>
           <figcaption>
             <div class="dest-top"><h3>Lisbon</h3><span class="badge">Opening first</span></div>
-            <p>Warm most of the year, walkable, and full of great secondhand shops.</p>
+            <p>Warm most of the year, walkable, and full of great local stores.</p>
           </figcaption>
         </figure>
         <figure class="dest reveal">
@@ -445,7 +471,7 @@
           <div class="photo"><img alt="People walking past a building in Mexico City in daylight" src="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop" srcset="https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=400&amp;auto=format&amp;fit=crop 400w, https://images.unsplash.com/photo-1585464231875-d9ef1f5ad396?fm=jpg&amp;q=65&amp;w=750&amp;auto=format&amp;fit=crop 750w" sizes="(min-width: 1025px) 280px, (min-width: 601px) 45vw, 78vw" width="750" height="938" loading="lazy" /></div>
           <figcaption>
             <div class="dest-top"><h3>Mexico City</h3><span class="badge badge-outline">Winter escape</span></div>
-            <p>Long stays, mild weather, and neighbourhoods where secondhand is normal.</p>
+            <p>Long stays, mild weather, and neighbourhoods full of independent shops.</p>
           </figcaption>
         </figure>
         <figure class="dest reveal">
@@ -506,11 +532,13 @@
         <h2 id="faq-title" class="words">Good questions.</h2>
       </div>
       <div class="faq">
+        <details><summary>Is this rental or do I buy the clothes?</summary><p>It's rental. You wear the pieces on your trip and hand them back. If you love something, you can buy it. That's optional.</p></details>
+        <details><summary>Can I choose my own outfits?</summary><p>Yes. Browse what's in stock in your city and pick. Or set your preferences and we'll choose for you.</p></details>
+        <details><summary>Who owns the clothes?</summary><p>Local stores in each city. They list their pieces on Packless. We don't keep our own stock.</p></details>
+        <details><summary>How do you choose partner stores?</summary><p>Every store must meet our standards: pieces are condition checked, professionally cleaned, and measured so sizes are documented properly.</p></details>
         <details><summary>How much does it cost?</summary><p>We'll share prices before launch. People on the waitlist hear first. Joining the waitlist is free.</p></details>
-        <details><summary>How do you know my size?</summary><p>You tell us your sizes and how you like things to fit. You do it once. We pick from there.</p></details>
+        <details><summary>How do you know my size?</summary><p>You save your sizes once. Every piece has measured, documented sizing, so you can check the fit before you pick it.</p></details>
         <details><summary>What if something doesn't fit?</summary><p>Tell us. We'll swap it while you're there.</p></details>
-        <details><summary>Do I have to give everything back?</summary><p>No. Return what you borrowed before you fly home. Keep anything that earned a spot in your bag.</p></details>
-        <details><summary>Where do the clothes come from?</summary><p>A short list of secondhand shops in each city. We choose them for condition, size range and season.</p></details>
         <details><summary>Which cities can I use it in?</summary><p>Lisbon opens first. Quito, Mexico City and Copenhagen follow. Cities open in stages.</p></details>
         <details><summary>What happens when I join the waitlist?</summary><p>You get one email when your city opens. Nothing to pay today. No spam.</p></details>
       </div>
