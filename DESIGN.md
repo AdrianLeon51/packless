@@ -309,16 +309,16 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Warm photos on calm grounds:** vivid images sit on paper or inside blue bands, never on a competing tint.
 - **Alt text** is descriptive and literal: colour, garment, setting ("A woman in a bright yellow puffer jacket turning toward the sun on a city street").
 - **Sourcing:** masters come from Unsplash under the free licence (`images.unsplash.com`, never `plus.unsplash.com`). They are downloaded once and not committed. No image is hotlinked.
-- **Self-hosted and pre-optimised:** every photo is served from `docs/img/` as AVIF (quality 55) with a WebP fallback (quality 75) through `<picture>`. Files are pre-cropped to their display ratio, resized with Lanczos, and stripped of metadata. Names follow `<name>-<width>.avif|webp`.
+- **Self-hosted and pre-optimised:** every photo is served from `docs/img/` as AVIF (quality 48; 42 for the partner-store band, which sits mostly behind its text panel) with a WebP fallback (quality 70) through `<picture>`. Files are pre-cropped to their display ratio, resized with Lanczos, and stripped of metadata. Names follow `<name>-<width>.avif|webp`.
 
 | Role | Ratio | Widths |
 |---|---|---|
-| `hero`, `rail`, `traveller` (framed module photos) | 4:5 | 480, 800, 1080 |
-| `store` (full-bleed partner band) | 3:2 | 800, 1280, 1920 |
-| `lisbon`, `barcelona`, `paris`, `amsterdam` (destination cards) | 4:5 | 400, 640, 800 |
+| `hero`, `rail`, `traveller` (framed module photos) | 4:5 | 480, 640, 800, 1080 |
+| `store` (full-bleed partner band) | 3:2 | 800, 1280, 1600, 1920 |
+| `lisbon`, `barcelona`, `paris`, `amsterdam` (destination cards) | 4:5 | 320, 480, 640, 800 |
 | `og.jpg` (social share) | 1200×630 | JPEG quality 80 |
 
-- **Loading:** `sizes` matches the real layout, and `width` and `height` are set to the cropped ratio, so nothing shifts. The hero is preloaded as AVIF with `fetchpriority="high"`. Every other photo is `loading="lazy" decoding="async"`. `picture { display: contents }` keeps the `<img>` in charge of layout.
+- **Loading:** `sizes` matches the measured rendered width, so the browser picks the smallest file that is still sharp: hero `min(30vw, 440px)`, Two ways `min(36vw, 440px)`, Who it’s for `min(40vw, 520px)`, destinations `min(20vw, 270px)` (`calc(50vw - 60px)` on tablets, `78vw` on phones), store band `100vw`. Re-measure and update these if a layout changes. Also, and `width` and `height` are set to the cropped ratio, so nothing shifts. The hero is preloaded as AVIF with `fetchpriority="high"`. Every other photo is `loading="lazy" decoding="async"`. `picture { display: contents }` keeps the `<img>` in charge of layout.
 - **Destinations:** Lisbon (opening first), Barcelona, Paris and Amsterdam. All are 4:5, centred, with the same neutral grade.
 
 ## Illustration
