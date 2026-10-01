@@ -14,7 +14,7 @@ colors:
   on-primary: "#FFF8EE"  # paper text on blue, 5.62:1
   secondary: "#0B1D3A"  # --navy. Ink, 2px outlines, secondary-button hover fill, navy colour card
   on-secondary: "#FFF8EE"  # paper on navy, 15.92:1
-  accent: "#FF7A59"  # --coral. The only CTA colour; also eyebrow dots, tick dots, badges, the "unworn" marker
+  accent: "#FF7A59"  # --coral. The only CTA colour; also eyebrow dots, tick dots, badges, the "wrong" marker
   on-accent: "#0B1D3A"  # navy on coral, 6.54:1
   accent-hover: "#FF6A45"  # --coral-hover
   surface: "#FFF8EE"  # --paper. Page canvas, every non-blue section, cards, panels. There is no pure white
@@ -205,9 +205,9 @@ components:
 
 ## Overview
 
-Packless is a clothing-rental membership for travellers: *pack nothing, wear everything*. Members get a curated travel wardrobe waiting where they land. They either pick outfits themselves from what local partner stores have in stock, or let Packless put them together from saved preferences. Everything is rented; buying a piece is optional. Packless keeps no stock of its own. Independent stores in each city list their pieces on the platform and must meet three standards: condition checked, professionally cleaned, and sizes measured and documented.
+Packless is a clothing-rental membership for travellers: *pack light, wear everything*. The positioning: you can't pack for a trip you haven't had yet. Bring the basics, get the rest where you land, and change it when the trip changes. Packing too much ("unworn") is the second beat; coming up short (forgotten, didn't fit in the bag, weather, a new plan) leads. Members get a curated travel wardrobe waiting where they land. They either pick outfits themselves from what local partner stores have in stock, or let Packless put them together from saved preferences. Everything is rented; buying a piece is optional. Packless keeps no stock of its own. Independent stores in each city list their pieces on the platform and must meet three standards: condition checked, professionally cleaned, and sizes measured and documented.
 
-The brand should feel like **a well-traveled friend with great taste**: energetic, friendly, stylish. The voice uses short sentences, concrete promises and no jargon ("Three steps. Zero suitcases.", "We don't own the clothes. Local stores do.").
+The brand should feel like **a well-traveled friend with great taste**: energetic, friendly, stylish. The voice uses short sentences, concrete promises and no jargon ("Three steps. No checked bag.", "We don't own the clothes. Local stores do."). The three traveller worries (style, fit, one more thing to organise) are answered with concrete mechanics (real photos, approve before you fly, try on at collection, swap while you're there, your basics travel with you), never with "trust us".
 
 Visually the page follows the Dopper reference's structure. Colour-blocked bands, pill buttons, 20px-rounded frames, flat surfaces and word-by-word headline reveals. Tile blue opens and closes the page. The middle is a calm off-white canvas where framed photos and flat **colour cards** (blue, navy, coral, sun, mint) bring the colour, one module at a time.
 
@@ -216,7 +216,7 @@ Visually the page follows the Dopper reference's structure. Colour-blocked bands
 - **Tile blue, `--blue` (#1D5BD8):** Primary. Named for Lisbon's azulejo tiles. Hero band (with motion on, the hero starts paper with navy text and fills to blue from a dropped map pin as the visitor scrolls; see Motion), closing CTA band, the featured "Fortnight" plan card, step and FAQ toggle icons, and one of the colour-card fills. Text on blue is always paper (5.62:1). Navy text on blue fails (2.83:1) and is never used.
 - **Paper, `--paper` (#FFF8EE):** Warm off-white canvas for every other section, and the fill of cards, panels and the waitlist form. There is no pure white in the system.
 - **Navy, `--navy` (#0B1D3A):** Ink. All text on paper and on light colour cards, 2px outlines, the secondary-button hover fill, and the navy colour card. `--navy-soft` (#33456A) is for secondary copy on paper only (9.05:1).
-- **Coral, `--coral` (#FF7A59):** The only call-to-action colour (buttons with navy text, 6.54:1). It also marks small highlights: eyebrow dots, tick dots, badges, the underline behind "unworn". It may fill one colour card per row, and a button never sits on a coral card.
+- **Coral, `--coral` (#FF7A59):** The only call-to-action colour (buttons with navy text, 6.54:1). It also marks small highlights: eyebrow dots, tick dots, badges, the underline behind "wrong" in the problem line. It may fill one colour card per row, and a button never sits on a coral card.
 - **Sun (#FFC94D) and mint (#8FDCC2):** Fresh accents that exist **only as colour-card fills**. Sun echoes the hero's yellow jacket and Lisbon's trams, and mint adds a young, fresh note. Both take navy text (10.96:1 and 10.54:1).
 - **Two section backgrounds only:** blue and paper. Card fills never become section backgrounds. Sand (#F4E6CC) was tried and removed: it sat too close to paper, looked accidental, and dulled warm photos.
 - **Text-on-fill pairing:**
@@ -238,7 +238,7 @@ Visually the page follows the Dopper reference's structure. Colour-blocked bands
 
 - **Rubik** (600–700) carries every heading, card title, FAQ question and the wordmark. It has softly rounded corners on a geometric base, so it reads friendly but grown up. Headlines use weight 700 with -0.01em tracking, because Rubik runs wide.
 - **Figtree** (400–800) carries body, intros, labels, buttons and inputs. It's crisp and geometric, in the role Gilroy plays for Dopper. Body is 17px/1.55 at weight 400 in navy for high contrast. Weight 300 and light greys are never used for body text.
-- **Headline rule:** the hero H1 is two sentences, each forced onto its own line (`h1 .line { display: block }`). "Wear everything." is about 8.25em wide, so the H1 size is capped by the viewport to keep each sentence on one line at every width.
+- **Headline rule:** the hero H1 is two sentences, each forced onto its own line (`h1 .line { display: block }`). "Pack light." / "Wear everything." "Wear everything." is about 8.25em wide, so the H1 size is capped by the viewport to keep each sentence on one line at every width.
 - **Eyebrows** are 15px/800, uppercase with 0.08em tracking, preceded by a 10px coral dot. Card labels are the same style at 14px.
 - **Scale:** H1 clamp(40, 5.2vw, 76) → H2 clamp(32, 5vw, 56) → plan names 32 → card titles 24–28 → H3 24 → destination names 22 → intro 19–22 → FAQ questions 20 → body 17 → small 15 → labels 14.
 
@@ -247,9 +247,9 @@ Visually the page follows the Dopper reference's structure. Colour-blocked bands
 The page is a vertical stack of modules in **three width tiers**. Contrast between full-bleed and narrow modules gives the page rhythm, as on the reference.
 
 - **Full-bleed:** hero band (blue), the partner-store photo band, and the closing CTA band (blue).
-- **Wide** (`.container`, max 1280px including gutters): How it works, Membership, Destinations, Who it's for.
+- **Wide** (`.container`, max 1280px including gutters): How it works, No surprises, Membership, Destinations, Who it's for.
 - **Narrow** (`.container.narrow`, 960px content): the problem line, "Two ways to get dressed" and the FAQ.
-- **Band order:** hero (blue) → problem (paper) → how it works (paper) → two ways (paper) → membership (paper) → partner stores (photo + panel) → destinations (paper) → who it's for (paper) → FAQ (paper) → closing CTA (blue) → footer (paper with a divider).
+- **Band order:** hero (blue) → problem (paper) → how it works (paper) → two ways (paper) → no surprises (paper) → membership (paper) → partner stores (photo + panel) → destinations (paper) → who it's for (paper) → FAQ (paper) → closing CTA (blue) → footer (paper with a divider).
 - **Spacing:** every section uses `--section-y`. Consecutive paper sections drop their top padding (`.bg-paper + .bg-paper`), so the gap between modules is always one section's padding. Every container uses `--gutter` and every card uses `--card-pad`.
 - **Grids:** three equal columns (`repeat(3, minmax(0, 1fr))`, stretched to equal height) for steps and plans, stacking below 860px. Destinations use 4 columns, then 2 at 1024px and below, then a horizontal scroll-snap row (78% cards) at 600px and below. Scroll rows scroll inside themselves, never the page.
 - **Image and copy alternation:** hero (copy left, photo right), then Two ways (photo left, copy right), then Who it's for (copy left, photo right; photo on top below 860px).
@@ -272,13 +272,13 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 
 - **Buttons:** coral pill with navy text is the only primary CTA ("Join the waitlist"). The secondary button is a transparent pill with a 2px navy outline that fills navy with paper text on hover. Hover lifts 2px with the bounce easing.
 - **Waitlist form:** one component used in the hero and the closing CTA. It's a paper pill with a navy border holding the email input and a coral submit button. Below 520px it stacks into a 20px-radius box. It has a hidden honeypot field, and a note line under it (paper at 90% on blue). Submissions go to Web3Forms.
-- **Outlined cards** (`.card-outline`) hold structural content: the Two ways options, the Who it's for personas and the Membership plans. The featured plan is a blue card with paper text, a coral "Most travelers" badge, paper-ringed tick dots and a paper dashed divider. Each plan ends with "Pricing announced at launch", then a full-width button pinned to the bottom so buttons line up across the row.
+- **Outlined cards** (`.card-outline`) hold structural content: the Two ways options, the Who it's for personas, the No surprises trio (style, fit, less to plan) and the Membership plans. The featured plan is a blue card with paper text, a coral "Most travelers" badge, paper-ringed tick dots and a paper dashed divider. Each plan ends with "Pricing announced at launch", then a full-width button pinned to the bottom so buttons line up across the row.
 - **Colour cards** (`.card-color` plus `.is-blue`, `.is-navy`, `.is-coral`, `.is-sun`, `.is-mint`), modelled on Dopper's Tap / Map row. Each is one flat fill with a card label, title and one line of text at the top, and a large flat spot illustration anchored bottom-right, "standing" on the colour. There's no border or background image. Hover lifts the card 4px and tilts the art -4deg. Used in How it works (sun, blue, mint). Navy and coral variants are defined for future rows.
 - **Photo cards** (`.card-photo`): the photo fills the card with no tint, and all text sits inside a paper panel (`.card-panel`) inset 12px at the bottom. Used for the four destination cards (4:5).
 - **Panel over photo** (`.photo-band` + `.panel`): a full-bleed store photo with a 560px paper panel carrying the partner-standards copy. Below 760px the photo becomes a 4:3 block and the panel overlaps it by 48px with a navy outline.
 - **Badges:** coral pill (navy text) for highlights ("Opening first", "Easiest", "Most travelers"), paper in the hero, and an outline variant for neutral tags.
 - **Tick list:** a 16px coral dot with a navy ring (paper ring on blue).
-- **FAQ:** native `<details>` items, outlined, in two CSS columns at 900px and up, with 8 questions (4 and 4). A FAQPage JSON-LD block mirrors the visible text word for word.
+- **FAQ:** native `<details>` items, outlined, in two CSS columns at 900px and up, with 10 questions (5 and 5). A FAQPage JSON-LD block mirrors the visible text word for word.
 - **Nav:** wordmark on the left, coral "Join the waitlist" pill on the right, over the blue hero. It isn't sticky.
 - **Hero arrival stage:** `.hero-track` (wrapper) → `.hero` (sticky) + `.hero-spacer` (scroll distance, 60svh). Inside the hero, `.hero-fx` (`aria-hidden`, behind the content) holds three `.hero-ring` ellipses and the `.hero-fill` circle. `.hero-pin` (`aria-hidden` SVG, 45% opacity) sits behind the content but above the fill. Tracked texts get `.fx-t` and `.fx-ink`, plus `.is-wet` once the blue reaches them.
 - **Footer:** wordmark, email, Privacy and Terms, on paper with a thin divider.
@@ -350,5 +350,5 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Logo mark:** the brand is only a Rubik wordmark. A mark would give it more personality.
 - **Photography:** all photos are Unsplash stock. Replace them with real partner-store and member photos when available.
 - **Social share image:** `img/og.jpg` is the Lisbon tram, because the portrait hero photo doesn't crop well to 1200×630. A purpose-made share image (logo + headline + photo) would do better.
-- **Promises to confirm:** "Swap pieces on every trip" (Open year), "We'll swap it while you're there" (fit), and "Save your sizes once".
+- **Promises to confirm:** "Swap pieces on every trip" (Open year), "We'll swap it while you're there" (fit), "Save your sizes once", try-on at collection, approving outfits before the flight, "Add a piece if plans change" (Carry-on), real photos of every piece, and clothes "ready where you stay or at a store nearby".
 - **Hover on touch:** the colour-card and button hover lifts aren't limited to `(hover: hover)`, so a tap can leave a card "stuck" lifted on some touch browsers. Consider wrapping them in that media query.
