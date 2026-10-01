@@ -213,7 +213,7 @@ Visually the page follows the Dopper reference's structure. Colour-blocked bands
 
 ## Colors
 
-- **Tile blue, `--blue` (#1D5BD8):** Primary. Named for Lisbon's azulejo tiles. Hero band, closing CTA band, the featured "Fortnight" plan card, step and FAQ toggle icons, and one of the colour-card fills. Text on blue is always paper (5.62:1). Navy text on blue fails (2.83:1) and is never used.
+- **Tile blue, `--blue` (#1D5BD8):** Primary. Named for Lisbon's azulejo tiles. Hero band (with motion on, the hero starts paper with navy text and fills to blue as the visitor scrolls; see Motion), closing CTA band, the featured "Fortnight" plan card, step and FAQ toggle icons, and one of the colour-card fills. Text on blue is always paper (5.62:1). Navy text on blue fails (2.83:1) and is never used.
 - **Paper, `--paper` (#FFF8EE):** Warm off-white canvas for every other section, and the fill of cards, panels and the waitlist form. There is no pure white in the system.
 - **Navy, `--navy` (#0B1D3A):** Ink. All text on paper and on light colour cards, 2px outlines, the secondary-button hover fill, and the navy colour card. `--navy-soft` (#33456A) is for secondary copy on paper only (9.05:1).
 - **Coral, `--coral` (#FF7A59):** The only call-to-action colour (buttons with navy text, 6.54:1). It also marks small highlights: eyebrow dots, tick dots, badges, the underline behind "unworn". It may fill one colour card per row, and a button never sits on a coral card.
@@ -280,7 +280,7 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Tick list:** a 16px coral dot with a navy ring (paper ring on blue).
 - **FAQ:** native `<details>` items, outlined, in two CSS columns at 900px and up, with 8 questions (4 and 4). A FAQPage JSON-LD block mirrors the visible text word for word.
 - **Nav:** wordmark on the left, coral "Join the waitlist" pill on the right, over the blue hero. It isn't sticky.
-- **Hero media** (`.hero-media`): wraps the framed hero photo together with its decorative `.splash` glow and three `.ripple` rings (all `aria-hidden`, positioned behind the photo). `.hero-wave` is an `aria-hidden` SVG wave (two periods per half, so a -50% slide loops seamlessly) hung just below the hero. Its resting state is scaleY(0). Under reduced motion all four are `display: none` and the photo doesn't move.
+- **Hero water stage:** `.hero-track` (wrapper) → `.hero` (sticky) + `.hero-spacer` (scroll distance). Inside the hero, `.hero-fx` (`aria-hidden`, behind the content) holds `.hero-drop` (SVG teardrop), three `.hero-ring` ellipses and `.hero-water` with its `.hero-crest` wave (two periods per half, 200% wide). Tracked texts get `.fx-t` and `.fx-ink`, plus `.is-wet` once underwater.
 - **Footer:** wordmark, email, Privacy and Terms, on paper with a thin divider.
 
 ## Do's and Don'ts
@@ -332,12 +332,15 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Easing tokens:** `--ease-bounce` cubic-bezier(.64, .1, .26, 1.6) (Dopper's bounce-out) and `--ease-out` cubic-bezier(.16, 1, .3, 1).
 - **Headlines:** elements with `.words` split into word spans (recursing into nested spans) that rise 0.4em and fade in with a 60ms stagger and 650ms bounce when they enter the viewport.
 - **Sections and rows:** `.reveal` fades up 28px over 700ms, triggered by IntersectionObserver.
-- **Hero, "drop in water"** (plays once on load, about 1.65s, CSS only):
-  - **Drop (0–550ms):** the framed photo falls 28px with a gravity ease-in, overshoots 5px, bobs back 2px and rests (`drop`, 1.1s). Transform only, never opacity, so the hero image paints straight away and LCP isn't delayed.
-  - **Impact (from 500ms):** three 2px rings in paper at 50% opacity spread from the photo's centre behind it, scaling 0.7 → 2.6 and fading to 0 over 1.4s, staggered at 0, 180 and 360ms. Under them, a soft paper radial glow (16%) scales 0.6 → 1.9 and fades.
-  - **Settle (from 500ms, 1.15s):** a blue wave hanging under the hero's bottom edge swells and damps out (scaleY 0 → 1 → 0.3 → 0.55 → 0.15 → 0.25 → 0) while the wave pattern slides sideways. It ends flat, identical to the static hero.
-  - The hero copy sits above the rings (z-index 2), so text stays fully readable throughout. Nothing tints the photo.
-  - Only `transform` and `opacity` are animated, so it runs smoothly on phones. On phones the wave falls below the first screen, so the drop and rings carry the effect.
+- **Hero, "droplet fills the hero"** (scroll-driven, plays as the visitor scrolls):
+  - **Stage:** `.hero` is `position: sticky` inside `.hero-track`, followed by an empty `.hero-spacer` (`100svh`). The hero holds while the spacer scrolls past, and that distance is the animation's progress p (0 → 1). On desktop the hero is `min-height: 100svh` and pins at the top. On phones, where it's taller than the screen, JS sets `top: min(0, innerHeight − heroHeight)`, so it scrolls until its bottom edge is visible, then pins. `p = clamp((scrollY − pinStart) / spacerHeight)`, with `pinStart = max(0, heroHeight − innerHeight)`.
+  - **p 0–0.30:** a blue teardrop (`.hero-drop`, 36×48) falls from the centre of the hero to its bottom edge, accelerating (quadratic ease-in) and stretching to scaleY 1.25.
+  - **p 0.30–0.34:** the drop sinks in (scale 1 → 0).
+  - **p 0.30–0.65:** three flat blue ellipse rings (`.hero-ring`, 2px, 55% opacity, `min(72vw, 960px)` wide, ratio 6.5:1) spread along the bottom edge, staggered 0 / 0.06 / 0.12, easing out and fading.
+  - **p 0.34–1:** the water (`.hero-water`, blue) rises from below with an SVG wave crest (`.hero-crest`) on its surface, ease-in-out, while the crest slides sideways. At p = 1 the hero gets `.is-full` (blue background, decorative layers hidden), identical to the static hero.
+  - **Readable throughout:** while dry, hero text is navy on paper. JS tracks the wordmark, each headline line, the intro, the paragraph and the form note, and adds `.is-wet` as the waterline passes each one's centre. The text then fades to paper over 200ms. The badge carries a 2px navy outline while dry, and focus rings follow the same dry/wet state.
+  - **Smooth:** one passive, rAF-throttled scroll handler reads only cached geometry (measured on load, resize, font load and via ResizeObserver) and writes custom properties. CSS turns them into `transform` and `opacity` only, so there's no layout work per frame.
+  - **Fallback:** the effect only switches on when the head script adds `fx-water` to `<html>` (JS on and no `prefers-reduced-motion`). Otherwise the hero is the static blue band with no pinning.
 - **Hover:** buttons lift 2px, colour cards lift 4px and their art tilts -4deg, and FAQ toggles rotate 45deg when open.
 - **Reduced motion:** all of the above is turned off under `prefers-reduced-motion: reduce`.
 

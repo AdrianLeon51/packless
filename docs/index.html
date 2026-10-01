@@ -165,46 +165,41 @@
   .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 28px; letter-spacing: -0.01em; text-decoration: none; }
   .nav .btn { min-height: 46px; padding: 0 22px; font-size: 16px; }
 
-  .hero { position: relative; z-index: 1; padding-bottom: var(--section-y); } /* z-index: the settle wave hangs over the next section */
+  .hero { padding-bottom: var(--section-y); }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-top: clamp(16px, 4vw, 48px); }
-  .hero-copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-width: 0; }
+  .hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-width: 0; }
   .hero-copy .badge { background: var(--paper); }
   .hero .form-note, .cta .form-note { color: rgba(255, 248, 238, 0.9); }
   .hero-copy .intro { max-width: 30ch; }
   .hero-photo { aspect-ratio: 4 / 5; max-height: 640px; width: 100%; }
   .hero-photo img { object-position: center 25%; }
 
-  /* Drop in water, plays once on load. Transform and opacity only, so it stays on the compositor.
-     0-550ms the photo falls (gravity ease-in) and bobs; from ~500ms rings and a soft glow spread behind it
-     and the band's bottom edge swells into a wave, then damps out flat. */
-  .hero-media { position: relative; }
-  .hero-media .photo { position: relative; z-index: 1; animation: drop 1.1s both; }
-  .ripple, .splash { position: absolute; left: 50%; top: 50%; z-index: 0; width: 100%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; pointer-events: none; opacity: 0; }
-  .ripple { border: 2px solid rgba(255, 248, 238, 0.5); animation: ripple 1.4s var(--ease-out) 0.5s both; }
-  .ripple:nth-of-type(3) { animation-delay: 0.68s; }
-  .ripple:nth-of-type(4) { animation-delay: 0.86s; }
-  .splash { background: radial-gradient(closest-side, rgba(255, 248, 238, 0.16), rgba(255, 248, 238, 0)); animation: splash 1.2s var(--ease-out) 0.5s both; }
-  .hero-wave { position: absolute; left: 0; right: 0; top: 100%; height: clamp(20px, 3.5vw, 48px); overflow: hidden; color: var(--blue); pointer-events: none; transform-origin: top; animation: wave 1.15s 0.5s both; }
-  .hero-wave svg { width: 200%; max-width: none; height: 100%; animation: wave-slide 1.15s linear 0.5s both; }
-  @keyframes drop {
-    0%   { transform: translateY(-28px); animation-timing-function: cubic-bezier(.5, 0, .75, 0); }
-    50%  { transform: translateY(0);     animation-timing-function: ease-out; }
-    68%  { transform: translateY(5px);   animation-timing-function: ease-in-out; }
-    84%  { transform: translateY(-2px);  animation-timing-function: ease-in-out; }
-    100% { transform: none; }
-  }
-  @keyframes ripple { 0% { transform: scale(0.7); opacity: 1; } 100% { transform: scale(2.6); opacity: 0; } }
-  @keyframes splash { 0% { transform: scale(0.6); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
-  @keyframes wave {
-    0%   { transform: scaleY(0);    animation-timing-function: ease-out; }
-    18%  { transform: scaleY(1);    animation-timing-function: ease-in-out; }
-    38%  { transform: scaleY(0.3);  animation-timing-function: ease-in-out; }
-    56%  { transform: scaleY(0.55); animation-timing-function: ease-in-out; }
-    72%  { transform: scaleY(0.15); animation-timing-function: ease-in-out; }
-    86%  { transform: scaleY(0.25); animation-timing-function: ease-in; }
-    100% { transform: scaleY(0); }
-  }
-  @keyframes wave-slide { to { transform: translateX(-50%); } }
+  /* ---- Hero water (scroll-driven). Default (no JS / reduced motion) is the static blue hero above.
+     With .fx-water on <html>: the hero starts paper with navy text and pins (sticky) while .hero-spacer
+     scrolls past. JS maps that scroll to p 0..1 and writes custom properties; CSS uses them for
+     transform/opacity only. 0-.30 the drop falls from the centre to the bottom edge, .30-.34 it sinks in,
+     .30-.65 rings spread along the edge, .34-1 the water rises with a wavy crest until the hero is blue. */
+  .hero-fx, .hero-spacer { display: none; }
+  .fx-water .hero { position: sticky; top: var(--hero-top, 0px); min-height: 100svh; background: var(--paper); color: var(--navy); overflow: clip; isolation: isolate; }
+  .fx-water .hero > .container { position: relative; z-index: 1; }
+  .fx-water .hero-spacer { display: block; height: 100svh; }
+  .fx-water .hero-fx { display: block; position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .hero-drop { position: absolute; left: 50%; top: 50%; width: 36px; height: 48px; margin: -24px 0 0 -18px; fill: var(--blue); transform-origin: 50% 100%;
+    transform: translateY(var(--drop-y, 0px)) scale(var(--drop-k, 1)) scaleY(var(--drop-s, 1)); }
+  .hero-ring { position: absolute; left: 50%; top: 100%; width: min(72vw, 960px); aspect-ratio: 6.5; margin-left: calc(min(72vw, 960px) / -2); translate: 0 -50%; border: 2px solid rgba(29, 91, 216, 0.55); border-radius: 50%; opacity: 0; }
+  .hero-ring:nth-of-type(1) { transform: scale(var(--r1, 0.1)); opacity: var(--o1, 0); }
+  .hero-ring:nth-of-type(2) { transform: scale(var(--r2, 0.1)); opacity: var(--o2, 0); }
+  .hero-ring:nth-of-type(3) { transform: scale(var(--r3, 0.1)); opacity: var(--o3, 0); }
+  .hero-water { position: absolute; inset: 0; background: var(--blue); transform: translateY(var(--water-y, 200%)); }
+  .hero-crest { position: absolute; left: 0; bottom: calc(100% - 1px); width: 200%; max-width: none; height: clamp(24px, 3vw, 40px); fill: var(--blue); transform: translateX(var(--crest-x, 0%)); }
+  /* Text flips per element as the waterline passes its centre */
+  .fx-water .hero .fx-ink { color: var(--navy); transition: color 200ms linear; }
+  .fx-water .hero .fx-ink.is-wet { color: var(--paper); }
+  .fx-water .hero .badge:not(.is-wet) { box-shadow: inset 0 0 0 2px var(--navy); }
+  .fx-water .hero .fx-t:not(.is-wet):focus-visible, .fx-water .hero .waitlist.fx-t:not(.is-wet):focus-within { outline-color: var(--navy); }
+  .fx-water .hero.is-full { background: var(--blue); }
+  .fx-water .hero.is-full .hero-fx { visibility: hidden; }
+
   .hero-copy .intro + p { max-width: 38ch; }
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: minmax(0, 1fr); }
@@ -329,18 +324,22 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .reveal, .js .words .w { opacity: 1; transform: none; transition: none; }
-    .hero-media .photo, .ripple, .splash, .hero-wave, .hero-wave svg { animation: none; }
-    .ripple, .splash, .hero-wave { display: none; }
     .btn, .faq summary::after, .card-color, .card-art { transition: none; }
     .card-color:hover, .card-color:hover .card-art { transform: none; }
   }
 </style>
-<script>document.documentElement.className += " js";</script>
+<script>document.documentElement.className += " js" + (matchMedia("(prefers-reduced-motion: reduce)").matches ? "" : " fx-water");</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<div class="hero-track">
 <header class="bg-blue hero">
+  <div class="hero-fx" aria-hidden="true">
+    <svg class="hero-drop" viewBox="0 0 36 48" focusable="false"><path d="M18 0C18 0 2 20 2 31a16 16 0 0 0 32 0C34 20 18 0 18 0z"/></svg>
+    <span class="hero-ring"></span><span class="hero-ring"></span><span class="hero-ring"></span>
+    <div class="hero-water"><svg class="hero-crest" viewBox="0 0 1440 48" preserveAspectRatio="none" focusable="false"><path d="M0 48V24Q90 6 180 24T360 24T540 24T720 24T900 24T1080 24T1260 24T1440 24V48Z"/></svg></div>
+  </div>
   <div class="container">
     <nav class="nav" aria-label="Main">
       <a class="wordmark" href="/" aria-label="Packless home">Packless</a>
@@ -364,19 +363,14 @@
         </div>
       </div>
 
-      <div class="hero-media">
-        <span class="splash" aria-hidden="true"></span>
-        <span class="ripple" aria-hidden="true"></span>
-        <span class="ripple" aria-hidden="true"></span>
-        <span class="ripple" aria-hidden="true"></span>
-        <div class="photo hero-photo">
-          <picture><source type="image/avif" srcset="img/hero-480.avif 480w, img/hero-800.avif 800w, img/hero-1080.avif 1080w" sizes="(min-width: 901px) 32vw, calc(100vw - 40px)" /><img src="img/hero-800.webp" srcset="img/hero-480.webp 480w, img/hero-800.webp 800w, img/hero-1080.webp 1080w" sizes="(min-width: 901px) 32vw, calc(100vw - 40px)" alt="A woman in a bright yellow puffer jacket turning toward the sun on a city street" width="800" height="1000" fetchpriority="high" /></picture>
-        </div>
+      <div class="photo hero-photo">
+        <picture><source type="image/avif" srcset="img/hero-480.avif 480w, img/hero-800.avif 800w, img/hero-1080.avif 1080w" sizes="(min-width: 901px) 32vw, calc(100vw - 40px)" /><img src="img/hero-800.webp" srcset="img/hero-480.webp 480w, img/hero-800.webp 800w, img/hero-1080.webp 1080w" sizes="(min-width: 901px) 32vw, calc(100vw - 40px)" alt="A woman in a bright yellow puffer jacket turning toward the sun on a city street" width="800" height="1000" fetchpriority="high" /></picture>
       </div>
     </div>
   </div>
-  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" focusable="false"><path fill="currentColor" d="M0 0H1440V30Q1350 48 1260 30T1080 30T900 30T720 30T540 30T360 30T180 30T0 30Z"/></svg></div>
 </header>
+<div class="hero-spacer" aria-hidden="true"></div>
+</div>
 
 <main id="main">
 
@@ -661,6 +655,72 @@
     });
     })(el);
   });
+
+  // Hero water: scroll-driven droplet -> ripples -> rising water. Geometry is cached; each frame only
+  // writes custom properties and toggles classes, so scrolling never forces layout.
+  (function heroWater() {
+    var root = document.documentElement;
+    if (!/\bfx-water\b/.test(root.className)) return;
+    var hero = document.querySelector(".hero");
+    var spacer = document.querySelector(".hero-spacer");
+    var crest = document.querySelector(".hero-crest");
+    var copy = hero.querySelector(".hero-copy");
+    var tracked = [
+      [hero.querySelector(".wordmark"), true], [hero.querySelector(".nav .btn"), false],
+      [copy.querySelector(".badge"), false],
+      [copy.querySelector(".intro"), true], [copy.querySelector(".intro + p"), true],
+      [copy.querySelector(".waitlist"), false], [copy.querySelector(".form-note"), true]
+    ].filter(function (t) { return t[0]; });
+    // Headline lines flip one at a time, so a half-covered H1 never shows paper text on paper.
+    Array.prototype.forEach.call(copy.querySelectorAll("h1 .line"), function (line) { tracked.push([line, true]); });
+    tracked.forEach(function (t) { t[0].classList.add("fx-t"); if (t[1]) t[0].classList.add("fx-ink"); });
+
+    var H = 0, C = 0, D = 1, pinStart = 0, centers = [], ticking = false;
+    function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function easeInOut(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
+
+    function measure() {
+      H = hero.offsetHeight;
+      C = crest.getBoundingClientRect().height;
+      D = spacer.offsetHeight || 1;
+      var top = Math.min(0, window.innerHeight - H);
+      hero.style.setProperty("--hero-top", top + "px");
+      var heroTop = hero.getBoundingClientRect().top;
+      var docTop = heroTop + window.scrollY;
+      pinStart = docTop + Math.max(0, H - window.innerHeight);
+      centers = tracked.map(function (t) { var r = t[0].getBoundingClientRect(); return r.top - heroTop + r.height / 2; });
+      update();
+    }
+
+    function update() {
+      ticking = false;
+      var p = clamp((window.scrollY - pinStart) / D);
+      var fall = clamp(p / 0.30), e = fall * fall;
+      var dropTravel = H / 2 - 24;
+      hero.style.setProperty("--drop-y", (dropTravel * e).toFixed(1) + "px");
+      hero.style.setProperty("--drop-s", (1 + 0.25 * e).toFixed(3));
+      hero.style.setProperty("--drop-k", (1 - clamp((p - 0.30) / 0.04)).toFixed(3));
+      [0.30, 0.36, 0.42].forEach(function (start, i) {
+        var r = clamp((p - start) / 0.23);
+        hero.style.setProperty("--r" + (i + 1), (0.1 + 0.9 * (1 - Math.pow(1 - r, 2))).toFixed(3));
+        hero.style.setProperty("--o" + (i + 1), (r > 0 ? 1 - r : 0).toFixed(3));
+      });
+      var w = easeInOut(clamp((p - 0.34) / 0.66));
+      var ty = (1 - w) * (H + C);
+      hero.style.setProperty("--water-y", ty.toFixed(1) + "px");
+      hero.style.setProperty("--crest-x", (-((p * 3) % 1) * 50).toFixed(2) + "%");
+      var surface = ty - C / 2;
+      for (var i = 0; i < tracked.length; i++) tracked[i][0].classList.toggle("is-wet", w > 0 && centers[i] > surface);
+      hero.classList.toggle("is-full", p >= 1);
+    }
+
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    if (window.ResizeObserver) new ResizeObserver(measure).observe(hero);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    measure();
+  })();
 
   var animated = document.querySelectorAll(".reveal, .words");
   if ("IntersectionObserver" in window) {
