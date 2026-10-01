@@ -179,9 +179,8 @@
   /* ---- Hero arrival (scroll-driven). Default (no JS / reduced motion) is the static blue hero above.
      With .fx-water on <html>: the hero starts paper with navy text and pins (sticky) while .hero-spacer
      scrolls past. JS maps that scroll to p 0..1 and writes custom properties; CSS uses them for
-     transform/opacity only. 0-.28 a map pin drops from the centre to its landing point near the bottom
-     edge, .28-.40 it bounces, .30-.62 arrival rings spread, .38-1 blue spreads out from the landing
-     point until the hero is blue ("waiting where you land"). */
+     transform/opacity only. 0-.32 arrival rings spread from a landing point near the bottom edge,
+     .08-1 blue spreads out from that point until the hero is blue ("waiting where you land"). */
   .hero-fx, .hero-spacer { display: none; }
   .fx-water .hero { position: sticky; top: var(--hero-top, 0px); min-height: 100svh; background: var(--paper); color: var(--navy); overflow: clip; isolation: isolate; }
   .fx-water .hero > .container { position: relative; z-index: 1; }
@@ -192,20 +191,13 @@
   .hero-ring:nth-of-type(2) { transform: scale(var(--r2, 0.1)); opacity: var(--o2, 0); }
   .hero-ring:nth-of-type(3) { transform: scale(var(--r3, 0.1)); opacity: var(--o3, 0); }
   .hero-fill { position: absolute; left: 50%; top: var(--land-y, 100%); width: var(--fill-d, 3000px); aspect-ratio: 1; margin-left: calc(var(--fill-d, 3000px) / -2); translate: 0 -50%; border-radius: 50%; background: var(--blue); transform: scale(var(--fill, 0)); will-change: transform; }
-  .hero-pin { display: none; }
-  /* z-index 0 + later in the DOM than .hero-fx: above the fill and rings, behind all hero content. */
-  .fx-water .hero-pin { display: block; position: absolute; z-index: 0; pointer-events: none; left: 50%; top: 50%; width: 44px; height: 55px; margin: -55px 0 0 -22px; transform-origin: 50% 100%; overflow: visible;
-    transform: translateY(var(--pin-y, 0px)) scaleY(var(--pin-s, 1)); opacity: calc(var(--pin-o, 1) * 0.45); }
-  .hero-pin .pin-body { fill: var(--blue); stroke: var(--navy); stroke-width: 2.5; stroke-linejoin: round; }
-  .hero-pin .pin-dot { fill: var(--coral); stroke: var(--navy); stroke-width: 2.5; }
-  .fx-water .hero.is-landed .hero-pin .pin-body { fill: var(--paper); } /* stays visible once the blue reaches it */
   /* Text flips per element as the blue reaches its centre */
   .fx-water .hero .fx-ink { color: var(--navy); transition: color 200ms linear; }
   .fx-water .hero .fx-ink.is-wet { color: var(--paper); }
   .fx-water .hero .badge:not(.is-wet) { box-shadow: inset 0 0 0 2px var(--navy); }
   .fx-water .hero .fx-t:not(.is-wet):focus-visible, .fx-water .hero .waitlist.fx-t:not(.is-wet):focus-within { outline-color: var(--navy); }
   .fx-water .hero.is-full { background: var(--blue); }
-  .fx-water .hero.is-full .hero-fx, .fx-water .hero.is-full .hero-pin { visibility: hidden; }
+  .fx-water .hero.is-full .hero-fx { visibility: hidden; }
 
   .hero-copy .intro + p { max-width: 38ch; }
   @media (max-width: 900px) {
@@ -346,7 +338,6 @@
     <span class="hero-ring"></span><span class="hero-ring"></span><span class="hero-ring"></span>
     <span class="hero-fill"></span>
   </div>
-  <svg class="hero-pin" aria-hidden="true" viewBox="0 0 48 60" focusable="false"><path class="pin-body" d="M24 57C24 57 4 36 4 22a20 20 0 0 1 40 0c0 14-20 35-20 35z"/><circle class="pin-dot" cx="24" cy="22" r="7"/></svg>
   <div class="container">
     <nav class="nav" aria-label="Main">
       <a class="wordmark" href="/" aria-label="Packless home">Packless</a>
@@ -690,8 +681,8 @@
     })(el);
   });
 
-  // Hero arrival: scroll-driven pin drop -> bounce -> arrival rings -> blue spreading from the landing
-  // point. Geometry is cached; each frame only writes custom properties and toggles classes.
+  // Hero arrival: scroll-driven arrival rings -> blue spreading from the landing point.
+  // Geometry is cached; each frame only writes custom properties and toggles classes.
   (function heroArrival() {
     var root = document.documentElement;
     if (!/\bfx-water\b/.test(root.className)) return;
@@ -708,7 +699,7 @@
     Array.prototype.forEach.call(copy.querySelectorAll("h1 .line"), function (line) { tracked.push([line, true]); });
     tracked.forEach(function (t) { t[0].classList.add("fx-t"); if (t[1]) t[0].classList.add("fx-ink"); });
 
-    var H = 0, D = 1, pinStart = 0, landY = 0, travel = 0, R = 0, centers = [], stacked = false, ticking = false;
+    var H = 0, D = 1, pinStart = 0, landY = 0, R = 0, centers = [], ticking = false;
     function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
     function easeInOut(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
 
@@ -721,10 +712,6 @@
       pinStart = heroRect.top + window.scrollY + Math.max(0, H - window.innerHeight);
       var gridBottom = hero.querySelector(".hero-grid").getBoundingClientRect().bottom - heroRect.top;
       landY = Math.round((gridBottom + H) / 2);
-      // Single-column (phones): the hero centre is the email form, so the pin waits invisibly and fades in as it falls.
-      var photo = hero.querySelector(".hero-photo"), copyBox = hero.querySelector(".hero-copy");
-      stacked = photo.getBoundingClientRect().top >= copyBox.getBoundingClientRect().bottom;
-      travel = landY - H / 2;
       // Fill circle centred on the landing point, big enough to reach the farthest corner.
       R = Math.sqrt(Math.pow(W / 2, 2) + Math.pow(Math.max(landY, H - landY), 2)) + 4;
       hero.style.setProperty("--land-y", landY + "px");
@@ -739,29 +726,13 @@
     function update() {
       ticking = false;
       var p = clamp((window.scrollY - pinStart) / D);
-      // Drop (ease-in) then a damped double hop, with a squash on each impact.
-      var y, sy;
-      if (p < 0.28) {
-        var e = Math.pow(p / 0.28, 2);
-        y = travel * e; sy = 1 + 0.15 * e;
-      } else {
-        var t = clamp((p - 0.28) / 0.12);
-        var hop = t < 0.6 ? 18 * Math.sin(Math.PI * t / 0.6) : 6 * Math.sin(Math.PI * (t - 0.6) / 0.4);
-        y = travel - hop;
-        sy = 1 - 0.15 * Math.max(0, 1 - t / 0.12) - 0.08 * Math.max(0, 1 - Math.abs(t - 0.6) / 0.1);
-      }
-      hero.style.setProperty("--pin-y", y.toFixed(1) + "px");
-      hero.style.setProperty("--pin-s", sy.toFixed(3));
-      var pinIn = stacked ? clamp(p / 0.06) : 1;
-      hero.style.setProperty("--pin-o", (pinIn * (1 - clamp((p - 0.85) / 0.15))).toFixed(3));
-      [0.30, 0.36, 0.42].forEach(function (start, i) {
+      [0, 0.06, 0.12].forEach(function (start, i) {
         var r = clamp((p - start) / 0.20);
         hero.style.setProperty("--r" + (i + 1), (0.1 + 0.9 * (1 - Math.pow(1 - r, 2))).toFixed(3));
         hero.style.setProperty("--o" + (i + 1), (r > 0 ? 1 - r : 0).toFixed(3));
       });
-      var fill = easeInOut(clamp((p - 0.38) / 0.62));
+      var fill = easeInOut(clamp((p - 0.08) / 0.92));
       hero.style.setProperty("--fill", fill.toFixed(4));
-      hero.classList.toggle("is-landed", fill > 0);
       var radius = R * fill;
       for (var i = 0; i < tracked.length; i++) {
         var c = centers[i];
