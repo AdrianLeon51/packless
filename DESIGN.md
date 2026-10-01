@@ -280,6 +280,7 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Tick list:** a 16px coral dot with a navy ring (paper ring on blue).
 - **FAQ:** native `<details>` items, outlined, in two CSS columns at 900px and up, with 8 questions (4 and 4). A FAQPage JSON-LD block mirrors the visible text word for word.
 - **Nav:** wordmark on the left, coral "Join the waitlist" pill on the right, over the blue hero. It isn't sticky.
+- **Hero media** (`.hero-media`): wraps the framed hero photo together with its decorative `.splash` glow and three `.ripple` rings (all `aria-hidden`, positioned behind the photo). `.hero-wave` is an `aria-hidden` SVG wave (two periods per half, so a -50% slide loops seamlessly) hung just below the hero. Its resting state is scaleY(0). Under reduced motion all four are `display: none` and the photo doesn't move.
 - **Footer:** wordmark, email, Privacy and Terms, on paper with a thin divider.
 
 ## Do's and Don'ts
@@ -331,7 +332,12 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Easing tokens:** `--ease-bounce` cubic-bezier(.64, .1, .26, 1.6) (Dopper's bounce-out) and `--ease-out` cubic-bezier(.16, 1, .3, 1).
 - **Headlines:** elements with `.words` split into word spans (recursing into nested spans) that rise 0.4em and fade in with a 60ms stagger and 650ms bounce when they enter the viewport.
 - **Sections and rows:** `.reveal` fades up 28px over 700ms, triggered by IntersectionObserver.
-- **Hero:** the framed photo settles from scale 1.06 to 1 over 1.2s on load.
+- **Hero, "drop in water"** (plays once on load, about 1.65s, CSS only):
+  - **Drop (0–550ms):** the framed photo falls 28px with a gravity ease-in, overshoots 5px, bobs back 2px and rests (`drop`, 1.1s). Transform only, never opacity, so the hero image paints straight away and LCP isn't delayed.
+  - **Impact (from 500ms):** three 2px rings in paper at 50% opacity spread from the photo's centre behind it, scaling 0.7 → 2.6 and fading to 0 over 1.4s, staggered at 0, 180 and 360ms. Under them, a soft paper radial glow (16%) scales 0.6 → 1.9 and fades.
+  - **Settle (from 500ms, 1.15s):** a blue wave hanging under the hero's bottom edge swells and damps out (scaleY 0 → 1 → 0.3 → 0.55 → 0.15 → 0.25 → 0) while the wave pattern slides sideways. It ends flat, identical to the static hero.
+  - The hero copy sits above the rings (z-index 2), so text stays fully readable throughout. Nothing tints the photo.
+  - Only `transform` and `opacity` are animated, so it runs smoothly on phones. On phones the wave falls below the first screen, so the drop and rings carry the effect.
 - **Hover:** buttons lift 2px, colour cards lift 4px and their art tilts -4deg, and FAQ toggles rotate 45deg when open.
 - **Reduced motion:** all of the above is turned off under `prefers-reduced-motion: reduce`.
 
