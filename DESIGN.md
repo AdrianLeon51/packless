@@ -307,7 +307,18 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 - **Consistent crops:** destination cards are all 4:5 and centred. The hero is 4:5 on desktop and 4:3 below 900px, focused at 25% from the top to keep the face in frame.
 - **Warm photos on calm grounds:** vivid images sit on paper or inside blue bands, never on a competing tint.
 - **Alt text** is descriptive and literal: colour, garment, setting ("A woman in a bright yellow puffer jacket turning toward the sun on a city street").
-- **Sourcing:** Unsplash free licence only (`images.unsplash.com`, never `plus.unsplash.com`). Serve JPG at quality 65 with `srcset`, `width` and `height` set, and `loading="lazy"` below the fold. The hero image is preloaded with `fetchpriority="high"`.
+- **Sourcing:** masters come from Unsplash under the free licence (`images.unsplash.com`, never `plus.unsplash.com`). They are downloaded once and not committed. No image is hotlinked.
+- **Self-hosted and pre-optimised:** every photo is served from `docs/img/` as AVIF (quality 55) with a WebP fallback (quality 75) through `<picture>`. Files are pre-cropped to their display ratio, resized with Lanczos, and stripped of metadata. Names follow `<name>-<width>.avif|webp`.
+
+| Role | Ratio | Widths |
+|---|---|---|
+| `hero`, `rail`, `traveller` (framed module photos) | 4:5 | 480, 800, 1080 |
+| `store` (full-bleed partner band) | 3:2 | 800, 1280, 1920 |
+| `lisbon`, `barcelona`, `paris`, `amsterdam` (destination cards) | 4:5 | 400, 640, 800 |
+| `og.jpg` (social share) | 1200×630 | JPEG quality 80 |
+
+- **Loading:** `sizes` matches the real layout, and `width` and `height` are set to the cropped ratio, so nothing shifts. The hero is preloaded as AVIF with `fetchpriority="high"`. Every other photo is `loading="lazy" decoding="async"`. `picture { display: contents }` keeps the `<img>` in charge of layout.
+- **Destinations:** Lisbon (opening first), Barcelona, Paris and Amsterdam. All are 4:5, centred, with the same neutral grade.
 
 ## Illustration
 
@@ -328,6 +339,6 @@ Flat. No shadows anywhere. Depth comes from colour blocking, 2px navy outlines a
 
 - **Logo mark:** the brand is only a Rubik wordmark. A mark would give it more personality.
 - **Photography:** all photos are Unsplash stock. Replace them with real partner-store and member photos when available.
-- **Social share image:** the OG/Twitter image is still the Lisbon tram. The portrait hero photo doesn't crop well to 1200×630.
+- **Social share image:** `img/og.jpg` is the Lisbon tram, because the portrait hero photo doesn't crop well to 1200×630. A purpose-made share image (logo + headline + photo) would do better.
 - **Promises to confirm:** "Swap pieces on every trip" (Open year), "We'll swap it while you're there" (fit), and "Save your sizes once".
 - **Hover on touch:** the colour-card and button hover lifts aren't limited to `(hover: hover)`, so a tap can leave a card "stuck" lifted on some touch browsers. Consider wrapping them in that media query.
