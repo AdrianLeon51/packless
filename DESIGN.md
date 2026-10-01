@@ -14,7 +14,7 @@ colors:
   on-primary: "#FFF8EE"  # paper text on blue, 5.62:1
   secondary: "#0B1D3A"  # --navy. Ink, 2px outlines, secondary-button hover fill, navy colour card
   on-secondary: "#FFF8EE"  # paper on navy, 15.92:1
-  accent: "#FF7A59"  # --coral. The only CTA colour; also eyebrow dots, tick dots, badges, the "wrong" marker
+  accent: "#FF7A59"  # --coral. The only CTA colour; also eyebrow dots, tick dots, badges, the "every" marker
   on-accent: "#0B1D3A"  # navy on coral, 6.54:1
   accent-hover: "#FF6A45"  # --coral-hover
   surface: "#FFF8EE"  # --paper. Page canvas, every non-blue section, cards, panels. There is no pure white
@@ -205,9 +205,9 @@ components:
 
 ## Overview
 
-Packless is a clothing-rental membership for travellers: *pack light, wear everything*. The positioning: you can't pack for a trip you haven't had yet. Bring the basics, get the rest where you land, and change it when the trip changes. Packing too much ("unworn") is the second beat; coming up short (forgotten, didn't fit in the bag, weather, a new plan) leads. Members get a curated travel wardrobe waiting where they land. They either pick outfits themselves from what local partner stores have in stock, or let Packless put them together from saved preferences. Everything is rented; buying a piece is optional. Packless keeps no stock of its own. Independent stores in each city list their pieces on the platform and must meet three standards: condition checked, professionally cleaned, and sizes measured and documented.
+Packless is a clothing-rental membership for travellers: *pack light, wear everything*. The positioning: one bag can't hold every version of a trip; Packless is the extra space, waiting in the city. Bring the basics, get the rest where you land, and change it when the trip changes. Just-in-case pieces that come home unworn are the second beat. Members get a curated travel wardrobe waiting where they land. They either pick outfits themselves from what local partner stores have in stock, or let Packless put them together from saved preferences. Everything is rented; buying a piece is optional. Packless keeps no stock of its own. Independent stores in each city list their pieces on the platform and must meet three standards: condition checked, professionally cleaned, and sizes measured and documented.
 
-The brand should feel like **a well-traveled friend with great taste**: energetic, friendly, stylish. The voice uses short sentences, concrete promises and no jargon ("Three steps. No checked bag.", "We don't own the clothes. Local stores do."). The three traveller worries (style, fit, one more thing to organise) are answered with concrete mechanics (real photos, approve before you fly, try on at collection, swap while you're there, your basics travel with you), never with "trust us".
+The brand should feel like **a well-traveled friend with great taste**: energetic, friendly, stylish. The voice uses short sentences, concrete promises and no jargon ("Three steps. No checked bag.", "We don't own the clothes. Local stores do."). The three traveller worries (style, fit, one more thing to organise) are answered with concrete mechanics (real photos, approve before you fly, try on at collection, swap while you're there, your basics travel with you), never with "trust us". Never blame the traveller: the constraint is the bag (space, weight, not knowing what's coming), never their choices.
 
 Visually the page follows the Dopper reference's structure. Colour-blocked bands, pill buttons, 20px-rounded frames, flat surfaces and word-by-word headline reveals. Tile blue opens and closes the page. The middle is a calm off-white canvas where framed photos and flat **colour cards** (blue, navy, coral, sun, mint) bring the colour, one module at a time.
 
@@ -216,7 +216,7 @@ Visually the page follows the Dopper reference's structure. Colour-blocked bands
 - **Tile blue, `--blue` (#1D5BD8):** Primary. Named for Lisbon's azulejo tiles. Hero band (with motion on, the hero starts paper with navy text and fills to blue from a dropped map pin as the visitor scrolls; see Motion), closing CTA band, the featured "Fortnight" plan card, step and FAQ toggle icons, and one of the colour-card fills. Text on blue is always paper (5.62:1). Navy text on blue fails (2.83:1) and is never used.
 - **Paper, `--paper` (#FFF8EE):** Warm off-white canvas for every other section, and the fill of cards, panels and the waitlist form. There is no pure white in the system.
 - **Navy, `--navy` (#0B1D3A):** Ink. All text on paper and on light colour cards, 2px outlines, the secondary-button hover fill, and the navy colour card. `--navy-soft` (#33456A) is for secondary copy on paper only (9.05:1).
-- **Coral, `--coral` (#FF7A59):** The only call-to-action colour (buttons with navy text, 6.54:1). It also marks small highlights: eyebrow dots, tick dots, badges, the underline behind "wrong" in the problem line. It may fill one colour card per row, and a button never sits on a coral card.
+- **Coral, `--coral` (#FF7A59):** The only call-to-action colour (buttons with navy text, 6.54:1). It also marks small highlights: eyebrow dots, tick dots, badges, the underline behind "every" in the problem line. It may fill one colour card per row, and a button never sits on a coral card.
 - **Sun (#FFC94D) and mint (#8FDCC2):** Fresh accents that exist **only as colour-card fills**. Sun echoes the hero's yellow jacket and Lisbon's trams, and mint adds a young, fresh note. Both take navy text (10.96:1 and 10.54:1).
 - **Two section backgrounds only:** blue and paper. Card fills never become section backgrounds. Sand (#F4E6CC) was tried and removed: it sat too close to paper, looked accidental, and dulled warm photos.
 - **Text-on-fill pairing:**
