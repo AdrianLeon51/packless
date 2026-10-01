@@ -191,10 +191,12 @@
   .hero-ring:nth-of-type(3) { transform: scale(var(--r3, 0.1)); opacity: var(--o3, 0); }
   .hero-fill { position: absolute; left: 50%; top: var(--land-y, 100%); width: var(--fill-d, 3000px); aspect-ratio: 1; margin-left: calc(var(--fill-d, 3000px) / -2); translate: 0 -50%; border-radius: 50%; background: var(--blue); transform: scale(var(--fill, 0)); will-change: transform; }
   .hero-pin { display: none; }
-  .fx-water .hero-pin { display: block; position: absolute; z-index: 2; pointer-events: none; left: 50%; top: 50%; width: 44px; height: 55px; margin: -55px 0 0 -22px; transform-origin: 50% 100%; overflow: visible;
-    transform: translateY(var(--pin-y, 0px)) scaleY(var(--pin-s, 1)); opacity: var(--pin-o, 1); }
+  /* z-index 0 + later in the DOM than .hero-fx: above the fill and rings, behind all hero content. */
+  .fx-water .hero-pin { display: block; position: absolute; z-index: 0; pointer-events: none; left: 50%; top: 50%; width: 44px; height: 55px; margin: -55px 0 0 -22px; transform-origin: 50% 100%; overflow: visible;
+    transform: translateY(var(--pin-y, 0px)) scaleY(var(--pin-s, 1)); opacity: calc(var(--pin-o, 1) * 0.45); }
   .hero-pin .pin-body { fill: var(--blue); stroke: var(--navy); stroke-width: 2.5; stroke-linejoin: round; }
   .hero-pin .pin-dot { fill: var(--coral); stroke: var(--navy); stroke-width: 2.5; }
+  .fx-water .hero.is-landed .hero-pin .pin-body { fill: var(--paper); } /* stays visible once the blue reaches it */
   /* Text flips per element as the blue reaches its centre */
   .fx-water .hero .fx-ink { color: var(--navy); transition: color 200ms linear; }
   .fx-water .hero .fx-ink.is-wet { color: var(--paper); }
@@ -730,6 +732,7 @@
       });
       var fill = easeInOut(clamp((p - 0.38) / 0.62));
       hero.style.setProperty("--fill", fill.toFixed(4));
+      hero.classList.toggle("is-landed", fill > 0);
       var radius = R * fill;
       for (var i = 0; i < tracked.length; i++) {
         var c = centers[i];
